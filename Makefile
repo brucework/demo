@@ -38,7 +38,6 @@ USERINCLUDE := -Iinclude
 
 all:$(SUBDIRS) $(CODE_OBJS)
 	make -C $^
-	@echo $(SUBDIRS)
 #OUT:ECHO
 #	make -C out
 #ECHO:
@@ -47,5 +46,5 @@ $(CODE_OBJS):%.o:%.c
 	$(CC) -c $^ -o $(ROOT_DIR)/$(OBJS_DIR)/$@
 
 clean:
-	@rm $(OBJS_DIR)/*.o
+	@rm -rf $(OBJS_DIR)/*
 	@rm -rf $(BIN_DIR)/*
