@@ -2,8 +2,9 @@
 #include <stdlib.h>  
 #include <stdio.h>  
 #include <string.h>  
-#include <sys/shm.h>  
-#include "shmdata.h"  
+#include <sys/shm.h>
+
+#include <shmdata.h>
 
 int main()  
 {  

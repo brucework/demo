@@ -19,7 +19,7 @@ AWK		= awk
 Q		= @
 BUILD_CFLAGS =
 
-SUBDIRS = $(shell ls -l | grep ^d | awk '{if($$9 !="out") print $$9}')
+SUBDIRS = $(shell ls -l | grep ^d | awk '{if($$9 !="out" && $$9 != "include" && $$9 != "lib") print $$9}')
 OUT = $(shell ls -l | grep ^d | awk '{if($$9 =="out") print $$9}')
 
 ROOT_DIR = $(shell pwd)
@@ -32,9 +32,12 @@ CODE_SOURCE = ${wildcard *.c}
 
 CODE_OBJS = ${patsubst %.c, %.o, $(CODE_SOURCE)}
 
-export CC ROOT_DIR OBJS_DIR BIN_DIR
+USERINCLUDE := -I$(ROOT_DIR)/include
 
-USERINCLUDE := -Iinclude
+USERLIB := -L$(ROOT_DIR)/lib
+
+export CC ROOT_DIR OBJS_DIR BIN_DIR USERINCLUDE USERLIB
+
 
 all:$(SUBDIRS) $(CODE_OBJS)
 	make -C $^
@@ -42,8 +45,8 @@ all:$(SUBDIRS) $(CODE_OBJS)
 #	make -C out
 #ECHO:
 #	@echo $(SUBDIRS)
-$(CODE_OBJS):%.o:%.c
-	$(CC) -c $^ -o $(ROOT_DIR)/$(OBJS_DIR)/$@
+#$(CODE_OBJS):%.o:%.c
+#	$(CC) -c $^ -o $(ROOT_DIR)/$(OBJS_DIR)/$@
 
 clean:
 	@rm -rf $(OBJS_DIR)/*
