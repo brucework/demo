@@ -41,6 +41,7 @@ export CC ROOT_DIR OBJS_DIR BIN_DIR USERINCLUDE USERLIB
 
 all:$(SUBDIRS) $(CODE_OBJS)
 	make -C $^
+
 #OUT:ECHO
 #	make -C out
 #ECHO:
