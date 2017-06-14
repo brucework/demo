@@ -2,11 +2,10 @@
 #define __USER_DEBUG__
 
 #include <time.h>
-#include <stdio.h>
 
 #define USER_INFO    " [INFO] "
 #define USER_WARN    " [WARN] "
-#define USER_DEBUG    " [WARN] "
+#define USER_DEBUG    " [DEBUG] "
 #define USER_ERR    " [ERROR] "
 
 #define NONE    0
@@ -20,25 +19,29 @@
 #else
 #define debug(LEVEL,format, ...) \
     ({ \
-        switch(LEVEL){ \
-            case INFO: \
-                printf("[" __TIME__ "]" USER_INFO "Len:%d " format, __LINE__, ##__VA_ARGS__); \
-                break; \
-            case WARN: \
-                printf("[" __TIME__ "]" USER_WARN "Len:%d " format, __LINE__, ##__VA_ARGS__); \
-                break; \
-            case DEBUG: \
-                 printf("[" __TIME__ "]" USER_DEBUG "Len:%d " format, __LINE__, ##__VA_ARGS__); \
-                break; \
-            case ERR: \
-                 printf("[" __TIME__ "]" USER_ERR "Len:%d " format, __LINE__, ##__VA_ARGS__); \
-                break; \
-            case NONE: \
-                break; \
-            default: \
-                printf("[" __TIME__ "]" USER_ERR "Len:%d LOG format error\n", __LINE__); \
-                break; \
-        } \
+         time_t timep; \
+         struct tm *p; \
+         time(&timep); \
+         p = localtime(&timep); \
+         switch(LEVEL){ \
+         case INFO: \
+             printf("[%02d:%02d:%02d]" USER_INFO "Len:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+             break; \
+         case WARN: \
+             printf("[%02d:%02d:%2d]" USER_WARN "Len:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+             break; \
+         case DEBUG: \
+             printf("[%02d:%02d:%02d]" USER_DEBUG "Len:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+             break; \
+         case ERR: \
+             printf("[%02d:%02d:%02d]" USER_ERR "Len:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+             break; \
+         case NONE: \
+             break; \
+         default: \
+             printf("[%02d:%02d:%02d]" USER_ERR "Len:%02d LOG format error\n", p->tm_hour, p->tm_min, p->tm_sec, __LINE__); \
+             break; \
+         } \
     })
 #endif
 

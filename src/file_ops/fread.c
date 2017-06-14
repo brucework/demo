@@ -2,9 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <debug.h>
+
 struct reg {
-	int reg;
-	int value;
+    int reg;
+    int value;
 };
 
 struct reg reg_cfg[100];
@@ -13,41 +15,40 @@ int count;
 
 int read_file()
 {
-	FILE *fp;
+    FILE *fp;
 
-	count = 0;
-	printf("\t %s enter! \n", __func__);
-	fp = fopen(FILEPATH, "r+");
-	if(fp == NULL)
-	{
-		printf("\t open %s error\n", FILEPATH);
-		return -1;
-	}
+    count = 0;
+    debug(INFO, "\t %s enter! \n", __func__);
+    fp = fopen(FILEPATH, "r+");
+    if(fp == NULL)
+    {
+        debug(ERR, "\t open %s error\n", FILEPATH);
+        return -1;
+    }
 
-	while(!feof(fp))
-	{
-		fscanf(fp,"%x%d", &reg_cfg[count].reg, &reg_cfg[count].value);
-		//printf("\t count:%d reg:0x%3x,\tvalue:%d\n", count, reg_cfg[count].reg, reg_cfg[count].value);
-		count++;
-	}
-	fclose(fp);
-	return 0;
+    while(!feof(fp))
+    {
+        fscanf(fp,"%x%d", &reg_cfg[count].reg, &reg_cfg[count].value);
+        //debug(DEBUG, "\t count:%d reg:0x%3x,\tvalue:%d\n", count, reg_cfg[count].reg, reg_cfg[count].value);
+        count++;
+    }
+    fclose(fp);
+    return 0;
 }
-
-
 int main(void)
 {
-	printf(" -main enter!\n");
-	int i = 0;
-	read_file();
+    debug(INFO, " -main enter!\n");
+    int i = 0;
+    read_file();
 
-	while(i < count - 1)
-	{
-		printf("\t reg:0x%03x,\tvalue:%d\n", reg_cfg[i].reg, reg_cfg[i].value);
-		i++;
-	}
-	printf(" -Exit.\n");
-	return 0;
+    while(i < count - 1)
+    {
+        debug(INFO, "\t reg:0x%03x,\tvalue:%d\n", reg_cfg[i].reg, reg_cfg[i].value);
+        usleep(500*1000);
+        i++;
+    }
+    debug(INFO, " -Exit.\n");
+    return 0;
 }
 
 

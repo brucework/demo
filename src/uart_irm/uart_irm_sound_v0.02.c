@@ -76,11 +76,9 @@ typedef unsigned long long uint64_t;
 //#define LOG_FILE_PATH "/fs/microsd/irm_log002.txt"
 #define LOG_FILE_PATH "./irm_log002.txt"
 struct _reg{
-	uint16_t reg;
-	uint16_t val;
+    uint16_t reg;
+    uint16_t val;
 };
-
-
 
 /* thread state */
 static volatile bool thread_should_exit = false;
@@ -88,17 +86,17 @@ static volatile bool thread_running = false;
 static int irm_task;
 
 struct irm_data{
-	uint8_t	node_addr;
-	uint8_t cmd;
-	uint16_t reg;
-	uint16_t val;
-	uint16_t speed[4];
+    uint8_t	node_addr;
+    uint8_t cmd;
+    uint16_t reg;
+    uint16_t val;
+    uint16_t speed[4];
 };
 
 struct arg_conf{
-		uint16_t count;
-		uint16_t node_id;
-		int speed[20];
+    uint16_t count;
+    uint16_t node_id;
+    int speed[20];
 };
 
 struct arg_conf ctl;
@@ -126,64 +124,64 @@ static void irm_init(void);
  */
 static int irm_open_uart(const char *uart_name, struct termios *uart_config, struct termios *uart_config_original)
 {
-	/* Open UART */
-	const int uart = open(uart_name, O_RDWR | O_NOCTTY | O_NONBLOCK);
+    /* Open UART */
+    const int uart = open(uart_name, O_RDWR | O_NOCTTY | O_NONBLOCK);
 
-	if (uart < 0) {
-		err(1, "Error opening port: %s", uart_name);
-	}
+    if (uart < 0) {
+        err(1, "Error opening port: %s", uart_name);
+    }
 
-	/* Back up the original UART configuration to restore it after exit */
-	int termios_state;
+    /* Back up the original UART configuration to restore it after exit */
+    int termios_state;
 
-	if ((termios_state = tcgetattr(uart, uart_config_original)) < 0) {
-		warnx("ERR: tcgetattr%s: %d\n", uart_name, termios_state);
-		close(uart);
-		return -1;
-	}
+    if ((termios_state = tcgetattr(uart, uart_config_original)) < 0) {
+        warnx("ERR: tcgetattr%s: %d\n", uart_name, termios_state);
+        close(uart);
+        return -1;
+    }
 
-	/* Fill the struct for the new configuration */
-	tcgetattr(uart, uart_config);
+    /* Fill the struct for the new configuration */
+    tcgetattr(uart, uart_config);
 
-	/* Disable output post-processing */
-	uart_config->c_oflag &= ~OPOST;
+    /* Disable output post-processing */
+    uart_config->c_oflag &= ~OPOST;
 
-	/* Set baud rate */
-	static const speed_t speed = SERIAL_BITRATE;//B115200;
+    /* Set baud rate */
+    static const speed_t speed = SERIAL_BITRATE;//B115200;
 
-	if (cfsetispeed(uart_config, speed) < 0 || cfsetospeed(uart_config, speed) < 0) {
-		warnx("ERR: %s: %d (cfsetispeed, cfsetospeed)\n", uart_name, termios_state);
-		close(uart);
-		return -1;
-	}
+    if (cfsetispeed(uart_config, speed) < 0 || cfsetospeed(uart_config, speed) < 0) {
+        warnx("ERR: %s: %d (cfsetispeed, cfsetospeed)\n", uart_name, termios_state);
+        close(uart);
+        return -1;
+    }
 
-	if ((termios_state = tcsetattr(uart, TCSANOW, uart_config)) < 0) {
-		warnx("ERR: %s (tcsetattr)\n", uart_name);
-		close(uart);
-		return -1;
-	}
+    if ((termios_state = tcsetattr(uart, TCSANOW, uart_config)) < 0) {
+        warnx("ERR: %s (tcsetattr)\n", uart_name);
+        close(uart);
+        return -1;
+    }
 #if 0
-	char a[] = {0x55};
-	while(1)
-	{
-		write(uart, (void *)a,2);
-	}
+    char a[] = {0x55};
+    while(1)
+    {
+        write(uart, (void *)a,2);
+    }
 #endif
-	return uart;
+    return uart;
 }
 
 static int irm_set_uart_speed(int uart, struct termios *uart_config, speed_t speed)
 {
 
-	if (cfsetispeed(uart_config, speed) < 0) {
-		return -1;
-	}
+    if (cfsetispeed(uart_config, speed) < 0) {
+        return -1;
+    }
 
-	if (tcsetattr(uart, TCSANOW, uart_config) < 0) {
-		return -1;
-	}
+    if (tcsetattr(uart, TCSANOW, uart_config) < 0) {
+        return -1;
+    }
 
-	return uart;
+    return uart;
 }
 
 /**
@@ -191,37 +189,37 @@ static int irm_set_uart_speed(int uart, struct termios *uart_config, speed_t spe
  */
 static void usage()
 {
-	fprintf(stderr,
-		"usage: uart_irm start [-d <devicename>]\n"
-		"       uart_irm stop\n"
-		"       uart_irm status\n");
-	exit(1);
+    fprintf(stderr,
+            "usage: uart_irm start [-d <devicename>]\n"
+            "       uart_irm stop\n"
+            "       uart_irm status\n");
+    exit(1);
 }
 
 
 /**
  *create the log files "/fs/microsd/irm_imu_log001.txt"
-**/
+ **/
 static int irm_create_file( char * log_path)
 {
 
-	/* create files */
-	int ret = 0;
-//	unsigned n;
-	FILE *fd;
-	char *s = malloc(256);
-	/* Open or create the data debug file */
-	fd = fopen(LOG_FILE_PATH, "ab");
+    /* create files */
+    int ret = 0;
+    //	unsigned n;
+    FILE *fd;
+    char *s = malloc(256);
+    /* Open or create the data debug file */
+    fd = fopen(LOG_FILE_PATH, "ab");
 
-	if (fd == NULL) {
-		warnx("Could not open data debug file %s", log_path);
-		ret = -1;
-	}
+    if (fd == NULL) {
+        warnx("Could not open data debug file %s", log_path);
+        ret = -1;
+    }
 
-	fclose(fd);
-	free(s);
+    fclose(fd);
+    free(s);
 
-	return ret;
+    return ret;
 }
 
 #define FRAME_LENS 1024
@@ -236,62 +234,62 @@ static int test_fd;
 #if 0
 static int save_log(uint8_t *data, int len)
 {
-	unsigned n;
-   uint64_t log_time = hrt_absolute_time();
-	char *s = malloc(256);
-	FILE *fd;
-	fd = fopen(LOG_FILE_PATH, "a");
+    unsigned n;
+    uint64_t log_time = hrt_absolute_time();
+    char *s = malloc(256);
+    FILE *fd;
+    fd = fopen(LOG_FILE_PATH, "a");
 
 #if 0
-	int i;
-	for(i = 0; i < len; i++)
-	{
-		n = snprintf(s, 2,"%c,", data[i]);
-		fwrite(s, 1, n, fd);
-	}
+    int i;
+    for(i = 0; i < len; i++)
+    {
+        n = snprintf(s, 2,"%c,", data[i]);
+        fwrite(s, 1, n, fd);
+    }
 
 #else
-	if(data[1] == 0x88)
-	{
-       n = snprintf(s, 256,"num: \t%d \t time: \t%ld\t  speed:  \t%ld \t ldqFilt: \t%ld \t SwFaults: \t%ld\n", 1,(long int)log_time, (long int)((data[2]<<8) + data[3]), (long int)((data[4]<<8) + data[5]), (long int)((data[6]<<8) + data[7]));
+    if(data[1] == 0x88)
+    {
+        n = snprintf(s, 256,"num: \t%d \t time: \t%ld\t  speed:  \t%ld \t ldqFilt: \t%ld \t SwFaults: \t%ld\n", 1,(long int)log_time, (long int)((data[2]<<8) + data[3]), (long int)((data[4]<<8) + data[5]), (long int)((data[6]<<8) + data[7]));
         fwrite(s, 1, n, fd);
-	}
-	if(data[1] == 0x89)
-	{
+    }
+    if(data[1] == 0x89)
+    {
         n = snprintf(s, 256,"num: \t%d \t  time: \t%ld\t speed: \t%ld \tldqFilt: \t%ld \t SwFaults:\t%ld\n", 2,(long int)log_time, (long int)((data[2]<<8) + data[3]), (long int)((data[4]<<8) + data[5]), (long int)((data[6] <<8) + data[7]));
-		fwrite(s, 1, n, fd);
-	}
-	if(data[1] == 0x8a)
-	{
+        fwrite(s, 1, n, fd);
+    }
+    if(data[1] == 0x8a)
+    {
         n = snprintf(s, 256,"num: \t%d \t time:\t %ld\t speed: \t%ld\t ldqFilt: \t%ld \t SwFaults:\t%ld\n", 3,(long int)log_time, (long int)((data[2]<<8) + data[3]), (long int)((data[4]<<8) + data[5]), (long int)((data[6] <<8) + data[7]));
-		fwrite(s, 1, n, fd);
-	}
-	if(data[1] == 0x8b)
-	{
+        fwrite(s, 1, n, fd);
+    }
+    if(data[1] == 0x8b)
+    {
         n = snprintf(s, 256,"num: \t%d \t time: \t%ld\t speed: \t%ld\t ldqFilt:\t%ld \t SwFaults:\t%ld\n", 4,(long int)log_time, (long int)((data[2]<<8) + data[3]), (long int)((data[4]<<8) + data[5]), (long int)((data[6] <<8) + data[7]));
-		fwrite(s, 1, n, fd);
-	}
+        fwrite(s, 1, n, fd);
+    }
 
 #endif
 
-	free(s);
-	fclose(fd);
+    free(s);
+    fclose(fd);
 
-	return 0;
+    return 0;
 }
 #endif
 
 static enum {
-	RD_STATUS = 0,
-	CL_FAULT,
-	CHANGE_CTL_MODE,
-	MOTOR_CTL,
-	REG_RD = 5,
-	REG_WR,
-	CTL_NODE1 = 8,
-	CTL_NODE2,
-	CTL_NODE3,
-	CTL_NODE4,
+    RD_STATUS = 0,
+    CL_FAULT,
+    CHANGE_CTL_MODE,
+    MOTOR_CTL,
+    REG_RD = 5,
+    REG_WR,
+    CTL_NODE1 = 8,
+    CTL_NODE2,
+    CTL_NODE3,
+    CTL_NODE4,
 }commander = -1;
 
 #define ALL_NODE	0x00		//All nodes receive and execute command, no response.
@@ -299,19 +297,19 @@ static enum {
 /*
  * All nodes receive and execute the command and reply the master. Only used in 1-to-1
  * configuration. It will cause conflict if multiple nodes connected to the same network
-*/
+ */
 
 #define ONETOONE	0xFF
 
 #define CHECK_SUM 0xffff
 struct save_times {
-	struct timeval send_time;
-	struct timeval poll_time;
-	struct timeval receive_time;
-	uint64_t set_speed;
-	uint64_t speed;
-	uint8_t buffer[32];
-	uint8_t count;
+    struct timeval send_time;
+    struct timeval poll_time;
+    struct timeval receive_time;
+    uint64_t set_speed;
+    uint64_t speed;
+    uint8_t buffer[32];
+    uint8_t count;
 };
 static struct save_times times_buffer[100];
 uint8_t counts = 0;
@@ -320,185 +318,185 @@ uint8_t feedback_data[32];
 
 static int save_test(void)
 {
-	int ret;
-	int i = 0;
-	struct pollfd fds;
-	fds.fd = test_fd;
-	fds.events = POLLIN;
-//	times_buffer[counts].count = counts;
-	times_buffer[0].count = 0;
-//	times_buffer[counts].set_speed = (package[4] << 8) + package[5];
-	times_buffer[0].set_speed = (package[4] << 8) + package[5];
+    int ret;
+    int i = 0;
+    struct pollfd fds;
+    fds.fd = test_fd;
+    fds.events = POLLIN;
+    //	times_buffer[counts].count = counts;
+    times_buffer[0].count = 0;
+    //	times_buffer[counts].set_speed = (package[4] << 8) + package[5];
+    times_buffer[0].set_speed = (package[4] << 8) + package[5];
 REPOLL:
-	ret = poll(&fds, 1, 1);
-	{
-		
-		if (ret > 0) {
+    ret = poll(&fds, 1, 1);
+    {
 
-		//	usleep(10);
-			ret = read(test_fd, feedback_data, sizeof(feedback_data));
-			if(ret > 0)
-			{
-				int j = 0;
-				for(j = 0; j < ret; j++)
-				{
-					data_buff[i++] = feedback_data[j];
-				//	times_buffer[counts].buffer[i-1] = feedback_data[j];
-					times_buffer[0].buffer[i-1] = feedback_data[j];
-				}
-			//	save_log(feedback_data, ret);
-			}
-		}
-		if(fds.revents & POLLIN)
-			goto REPOLL;
-	}
-//	usleep(100);
+        if (ret > 0) {
 
-//	gettimeofday(&times_buffer[counts].receive_time, NULL);
-	gettimeofday(&times_buffer[0].receive_time, NULL);
-//	times_buffer[counts].receive_time = hrt_absolute_time();
-//	times_buffer[counts].speed = (data_buff[4] << 8) + data_buff[5];
-//	times_buffer[0].speed = (data_buff[2] << 8) + data_buff[3];
-	times_buffer[0].speed = (data_buff[4] << 8) + data_buff[5];
-	times_buffer[0].set_speed = (data_buff[2] << 8) + data_buff[3];
-//	usleep(200);
-		unsigned n = 0;
-		int ii;
-		char *s = malloc(256);
-		FILE *fd;
+            //	usleep(10);
+            ret = read(test_fd, feedback_data, sizeof(feedback_data));
+            if(ret > 0)
+            {
+                int j = 0;
+                for(j = 0; j < ret; j++)
+                {
+                    data_buff[i++] = feedback_data[j];
+                    //	times_buffer[counts].buffer[i-1] = feedback_data[j];
+                    times_buffer[0].buffer[i-1] = feedback_data[j];
+                }
+                //	save_log(feedback_data, ret);
+            }
+        }
+        if(fds.revents & POLLIN)
+            goto REPOLL;
+    }
+    //	usleep(100);
 
-		printf("read:%lld,%lld\n", times_buffer[0].set_speed, times_buffer[0].speed);	
-	
-		fd = fopen(LOG_FILE_PATH, "a");
-			n = snprintf(s, 256,"%lld,%lld\n", times_buffer[0].set_speed, times_buffer[0].speed);
-//	n = snprintf(s, 256,"%lld,%llu,%lld,%llu\n", times_buffer[0].send_time.tv_sec * 1000000 + times_buffer[0].send_time.tv_usec, times_buffer[0].set_speed, times_buffer[0].receive_time.tv_sec * 1000000 + times_buffer[0].receive_time.tv_usec, times_buffer[0].speed);
-			fwrite(s, 1, n, fd);
-		free(s);
-		fclose(fd);
-		memset(times_buffer, 0, sizeof(struct save_times) * 100);
+    //	gettimeofday(&times_buffer[counts].receive_time, NULL);
+    gettimeofday(&times_buffer[0].receive_time, NULL);
+    //	times_buffer[counts].receive_time = hrt_absolute_time();
+    //	times_buffer[counts].speed = (data_buff[4] << 8) + data_buff[5];
+    //	times_buffer[0].speed = (data_buff[2] << 8) + data_buff[3];
+    times_buffer[0].speed = (data_buff[4] << 8) + data_buff[5];
+    times_buffer[0].set_speed = (data_buff[2] << 8) + data_buff[3];
+    //	usleep(200);
+    unsigned n = 0;
+    int ii;
+    char *s = malloc(256);
+    FILE *fd;
+
+    printf("read:%lld,%lld\n", times_buffer[0].set_speed, times_buffer[0].speed);
+
+    fd = fopen(LOG_FILE_PATH, "a");
+    n = snprintf(s, 256,"%lld,%lld\n", times_buffer[0].set_speed, times_buffer[0].speed);
+    //	n = snprintf(s, 256,"%lld,%llu,%lld,%llu\n", times_buffer[0].send_time.tv_sec * 1000000 + times_buffer[0].send_time.tv_usec, times_buffer[0].set_speed, times_buffer[0].receive_time.tv_sec * 1000000 + times_buffer[0].receive_time.tv_usec, times_buffer[0].speed);
+    fwrite(s, 1, n, fd);
+    free(s);
+    fclose(fd);
+    memset(times_buffer, 0, sizeof(struct save_times) * 100);
 
 #if 0
-	if(counts == 99)
-	{
-		counts = -1;
-		unsigned n = 0;
-		int ii;
-		char *s = malloc(256);
-		FILE *fd;
-		
-		fd = fopen(LOG_FILE_PATH, "a");
-		for( ii = 0; ii < 100; ii++)
-		{
-			n = snprintf(s, 256,"11%lld,%llu,%lld,%llu\n", times_buffer[ii].send_time.tv_sec * 1000000 + times_buffer[ii].send_time.tv_usec, times_buffer[ii].set_speed, times_buffer[ii].receive_time.tv_sec * 1000000 + times_buffer[ii].receive_time.tv_usec, times_buffer[ii].speed);
-			fwrite(s, 1, n, fd);
-		}
-		free(s);
-		fclose(fd);
-		memset(times_buffer, 0, sizeof(struct save_times) * 100);
-	}
-	counts = counts + 1;
+    if(counts == 99)
+    {
+        counts = -1;
+        unsigned n = 0;
+        int ii;
+        char *s = malloc(256);
+        FILE *fd;
+
+        fd = fopen(LOG_FILE_PATH, "a");
+        for( ii = 0; ii < 100; ii++)
+        {
+            n = snprintf(s, 256,"11%lld,%llu,%lld,%llu\n", times_buffer[ii].send_time.tv_sec * 1000000 + times_buffer[ii].send_time.tv_usec, times_buffer[ii].set_speed, times_buffer[ii].receive_time.tv_sec * 1000000 + times_buffer[ii].receive_time.tv_usec, times_buffer[ii].speed);
+            fwrite(s, 1, n, fd);
+        }
+        free(s);
+        fclose(fd);
+        memset(times_buffer, 0, sizeof(struct save_times) * 100);
+    }
+    counts = counts + 1;
 #endif
 
-	return 0;
+    return 0;
 }
 
 static int send_package(uint8_t *data, int package_lens)
 {
-	int ret = 0;
-	/* poll descriptor */
-	struct pollfd fds;
-	fds.fd = test_fd;
-	fds.events = POLLIN;
-	memset(feedback_data, 0, sizeof(feedback_data));
+    int ret = 0;
+    /* poll descriptor */
+    struct pollfd fds;
+    fds.fd = test_fd;
+    fds.events = POLLIN;
+    memset(feedback_data, 0, sizeof(feedback_data));
 
-//	gettimeofday(&times_buffer[counts].send_time, NULL);
-	gettimeofday(&times_buffer[0].send_time, NULL);
-	ret = write(test_fd, (void *)data, package_lens);
-	save_test();
-	return 0;
+    //	gettimeofday(&times_buffer[counts].send_time, NULL);
+    gettimeofday(&times_buffer[0].send_time, NULL);
+    ret = write(test_fd, (void *)data, package_lens);
+    save_test();
+    return 0;
 REPOLL:
-	ret = poll(&fds, 1, 10);
-	{
-	
-		if (ret > 0) {
+    ret = poll(&fds, 1, 10);
+    {
 
-			ret = read(test_fd, feedback_data, sizeof(feedback_data));
-			if(ret > 0)
-			{
-				save_log(feedback_data, ret);
-			}
-		}
-		if(fds.revents & POLLIN)
-			goto REPOLL;
-	}
-//	if(j == 12)
-//	save_log(test, j);
-//	memset(test, 0, sizeof(test));
-	return ret;
+        if (ret > 0) {
+
+            ret = read(test_fd, feedback_data, sizeof(feedback_data));
+            if(ret > 0)
+            {
+                save_log(feedback_data, ret);
+            }
+        }
+        if(fds.revents & POLLIN)
+            goto REPOLL;
+    }
+    //	if(j == 12)
+    //	save_log(test, j);
+    //	memset(test, 0, sizeof(test));
+    return ret;
 
 }
 static int checksum(uint8_t * buf, int lens)
 {
-	uint16_t sum = 0;
-	int i = 0;
+    uint16_t sum = 0;
+    int i = 0;
 
-	if (buf == NULL || lens < 8)
-	{
-		return -1;
-	}
+    if (buf == NULL || lens < 8)
+    {
+        return -1;
+    }
 
-	while(i < lens - 2)
-	{
-		sum += buf[i+1] + (buf[i] << 8);
-		i += 2;
-	}
+    while(i < lens - 2)
+    {
+        sum += buf[i+1] + (buf[i] << 8);
+        i += 2;
+    }
 
-	sum = CHECK_SUM - sum + 1;
-	buf[i] = (sum & 0xff00)>>8;
-	buf[i+1] = (sum & 0xff);
+    sum = CHECK_SUM - sum + 1;
+    buf[i] = (sum & 0xff00)>>8;
+    buf[i+1] = (sum & 0xff);
 
-	return 0;
+    return 0;
 }
 
 static int fill_package(uint8_t node_addr, uint8_t commond, uint8_t *data, uint8_t data_len)
 {
-	int ret = 0;
-	int i = 0;
+    int ret = 0;
+    int i = 0;
 
-	memset(package, 0, sizeof(package));
+    memset(package, 0, sizeof(package));
 
-	//uart frame header
-	package[0] = node_addr;
-	package[1] = commond;
+    //uart frame header
+    package[0] = node_addr;
+    package[1] = commond;
 
-	for(i = 0; i < data_len; i++)
-	{
-		package[i + 2] = data[i];
-	}
+    for(i = 0; i < data_len; i++)
+    {
+        package[i + 2] = data[i];
+    }
 
-	// fill checksum.
-	ret = checksum(package, data_len + PACKAGE_HEADER_LENS);
+    // fill checksum.
+    ret = checksum(package, data_len + PACKAGE_HEADER_LENS);
 
-	return ret;
+    return ret;
 }
 
 static int reg_write(uint8_t node_addr, uint16_t reg, uint16_t val)
 {
-	int ret = 0;
-	uint8_t data[32];
+    int ret = 0;
+    uint8_t data[32];
 
-	data[0] = (reg & 0xff00) >> 8;		//reg address
-	data[1] = reg & 0xff;
-	data[2] = (val & 0xff00) >> 8;
-	data[3] = val & 0xff;
-	data[4] = 0x0;
-	data[5] = 0x0;
+    data[0] = (reg & 0xff00) >> 8;		//reg address
+    data[1] = reg & 0xff;
+    data[2] = (val & 0xff00) >> 8;
+    data[3] = val & 0xff;
+    data[4] = 0x0;
+    data[5] = 0x0;
 
-	ret = fill_package(node_addr, REG_WR, data, 6);
+    ret = fill_package(node_addr, REG_WR, data, 6);
 
-	ret = send_package(package, 8);
+    ret = send_package(package, 8);
 
-	return ret;
+    return ret;
 }
 
 /*
@@ -508,138 +506,138 @@ static int reg_write(uint8_t node_addr, uint16_t reg, uint16_t val)
  * val: save the read data
  *
  * need to edit this function
-*/
+ */
 static int reg_read(uint8_t node_addr, uint16_t reg, uint16_t val)
 {
-	uint16_t ret = 0;
-	uint8_t data[32];
+    uint16_t ret = 0;
+    uint8_t data[32];
 
-	data[0] = (reg & 0xff00) >> 8;		//reg address
-	data[1] = reg & 0xff;
-	data[2] = 0x0;
-	data[3] = 0x0;
-	data[4] = 0x0;
-	data[5] = 0x0;
+    data[0] = (reg & 0xff00) >> 8;		//reg address
+    data[1] = reg & 0xff;
+    data[2] = 0x0;
+    data[3] = 0x0;
+    data[4] = 0x0;
+    data[5] = 0x0;
 
-	ret = fill_package(node_addr, REG_RD, data, 6);
+    ret = fill_package(node_addr, REG_RD, data, 6);
 
-	ret = send_package(package, 8);
-	if(ret == 0)
-	{
-		ret = (feedback_data[4] >> 8) + feedback_data[5];
-	}
+    ret = send_package(package, 8);
+    if(ret == 0)
+    {
+        ret = (feedback_data[4] >> 8) + feedback_data[5];
+    }
 
-	return ret;
+    return ret;
 
 }
 
 static int clear_fault_status(uint8_t node_address, uint8_t cmd)
 {
-	int ret = 0;
-	uint8_t data[32];
-	int len;
+    int ret = 0;
+    uint8_t data[32];
+    int len;
 
-	//frame header
-	data[0] = 0xff;
-	data[1] = 0x1;
-	data[2] = 0x0;
-	data[3] = 0x0;
-	data[4] = 0x0;
-	data[5] = 0x0;
-	len = 6;
+    //frame header
+    data[0] = 0xff;
+    data[1] = 0x1;
+    data[2] = 0x0;
+    data[3] = 0x0;
+    data[4] = 0x0;
+    data[5] = 0x0;
+    len = 6;
 
-	ret = fill_package(node_address, cmd, data, len);
+    ret = fill_package(node_address, cmd, data, len);
 
-	send_package(package, len+2);
+    send_package(package, len+2);
 
-	return ret;
+    return ret;
 }
 
 static int motor_ctl_speed(uint8_t node_address, uint8_t cmd, uint16_t *speed)
 {
-	int ret = 0;
-	uint8_t data[32];
-	int len;
-	int i = 0;
+    int ret = 0;
+    uint8_t data[32];
+    int len;
+    int i = 0;
 
-	//frame header
-	if(cmd == MOTOR_CTL)
-	{
-		data[0] = 0x0;
-		data[1] = 0x0;
-		data[2] = (speed[i] & 0xff00) >> 8;
-		data[3] = speed[i] & 0xff;
-		data[4] = 0;
-		data[5] = 0;
-		len = 6;
+    //frame header
+    if(cmd == MOTOR_CTL)
+    {
+        data[0] = 0x0;
+        data[1] = 0x0;
+        data[2] = (speed[i] & 0xff00) >> 8;
+        data[3] = speed[i] & 0xff;
+        data[4] = 0;
+        data[5] = 0;
+        len = 6;
 
-	}else{
+    }else{
 
-		for (i = 0; i < 4; i++)
-		{
-			data[i*2] = (speed[i] & 0xff00) >> 8;
-			data[i*2+1] = speed[i] & 0xff;
-		}
-		data[i*2+2] = 0;
-		data[i*2+3] = 0;
+        for (i = 0; i < 4; i++)
+        {
+            data[i*2] = (speed[i] & 0xff00) >> 8;
+            data[i*2+1] = speed[i] & 0xff;
+        }
+        data[i*2+2] = 0;
+        data[i*2+3] = 0;
 
-		len = 10;
-	}
+        len = 10;
+    }
 
-	ret = fill_package(node_address, cmd, data, len);
+    ret = fill_package(node_address, cmd, data, len);
 
-	send_package(package, len+2);
+    send_package(package, len+2);
 
-	return ret;
+    return ret;
 }
 
 static int uart_ioctl(struct irm_data pre, int _fd)
 {
-	int ret=0;
+    int ret=0;
 
-	test_fd = _fd;
-	commander = pre.cmd;
+    test_fd = _fd;
+    commander = pre.cmd;
 
-	switch(commander) {
-		case RD_STATUS:
+    switch(commander) {
+        case RD_STATUS:
 
-			break;
+            break;
 
-		case CL_FAULT:
-			ret = clear_fault_status(pre.node_addr, commander);
+        case CL_FAULT:
+            ret = clear_fault_status(pre.node_addr, commander);
 
-			break;
+            break;
 
-		case CHANGE_CTL_MODE:
+        case CHANGE_CTL_MODE:
 
-			break;
+            break;
 
-		case MOTOR_CTL:
-			ret = motor_ctl_speed(pre.node_addr, commander, pre.speed);
+        case MOTOR_CTL:
+            ret = motor_ctl_speed(pre.node_addr, commander, pre.speed);
 
-			break;
+            break;
 
-		case REG_RD:
-			ret = reg_read(pre.node_addr, pre.reg, pre.val);
+        case REG_RD:
+            ret = reg_read(pre.node_addr, pre.reg, pre.val);
 
-			break;
+            break;
 
-		case REG_WR:
-			ret = reg_write(pre.node_addr, pre.reg, pre.val);
+        case REG_WR:
+            ret = reg_write(pre.node_addr, pre.reg, pre.val);
 
-			break;
+            break;
 
-		case CTL_NODE1:
-		case CTL_NODE2:
-		case CTL_NODE3:
-		case CTL_NODE4:
-			ret = motor_ctl_speed(pre.node_addr, commander, pre.speed);
+        case CTL_NODE1:
+        case CTL_NODE2:
+        case CTL_NODE3:
+        case CTL_NODE4:
+            ret = motor_ctl_speed(pre.node_addr, commander, pre.speed);
 
-			break;
+            break;
 
-	}
+    }
 
-	return ret;
+    return ret;
 }
 
 
@@ -650,40 +648,40 @@ static int uart_ioctl(struct irm_data pre, int _fd)
  */
 static int irm_thread_main(int argc, char *argv[])
 {
-	/* Default values for arguments */
-	char *device_name = PATH_SERIAL_FD;
+    /* Default values for arguments */
+    char *device_name = PATH_SERIAL_FD;
 
-	/* Work around some stupidity in task_create's argv handling */
-	argc -= 2;
-	argv += 2;
+    /* Work around some stupidity in task_create's argv handling */
+    argc -= 2;
+    argv += 2;
 
-	/* Open UART assuming SmartPort telemetry */
-	struct termios uart_config_original;
-	struct termios uart_config;
-	int uart = irm_open_uart(device_name, &uart_config, &uart_config_original);
+    /* Open UART assuming SmartPort telemetry */
+    struct termios uart_config_original;
+    struct termios uart_config;
+    int uart = irm_open_uart(device_name, &uart_config, &uart_config_original);
 
-	if (uart < 0) {
-		warnx("could not open %s", device_name);
-	}
+    if (uart < 0) {
+        warnx("could not open %s", device_name);
+    }
 
-	/* poll descriptor */
-	thread_running = true;
+    /* poll descriptor */
+    thread_running = true;
 
-	int status = irm_set_uart_speed(uart, &uart_config, SERIAL_BITRATE);
+    int status = irm_set_uart_speed(uart, &uart_config, SERIAL_BITRATE);
 
-	if( status < 0)
-	{
-		/* Reset the UART flags to original state */
-	//	tcsetattr(uart, TCSANOW, &uart_config_original);
-	//	close(uart);
+    if( status < 0)
+    {
+        /* Reset the UART flags to original state */
+        //	tcsetattr(uart, TCSANOW, &uart_config_original);
+        //	close(uart);
 
-		thread_running = false;
-	//	return 0;
-	}
+        thread_running = false;
+        //	return 0;
+    }
 
-	/* init the status */
-	frame_count = 0;
-	memset(frame_buffer, 0 ,sizeof(frame_buffer));
+    /* init the status */
+    frame_count = 0;
+    memset(frame_buffer, 0 ,sizeof(frame_buffer));
 
     struct _reg *buffs;
     struct irm_data irm_buffer;
@@ -691,11 +689,11 @@ static int irm_thread_main(int argc, char *argv[])
     struct _reg reg_cfg[] = {
 #if 1
 
-	{0x13d, 0x00   },	
+        {0x13d, 0x00   },
         {0x222, 269  },
         {0x220, 0    },
         {0x221, 256  },		//for differt port 1:256,2:512,3:768,4:1024
-	    {0x0bd, 514  },
+        {0x0bd, 514  },
         {0x0be, 8336 },  //BitRATE:115200
         {0x0e9, 299  },
         {0x0ea, 280  },
@@ -749,367 +747,367 @@ static int irm_thread_main(int argc, char *argv[])
         {0x11f, 0    },
         {0x117, 0    },
         {0x118, 0    }
-//		{0xf52, 32   }
+        //		{0xf52, 32   }
 #endif
     };
 
-	int i = 0;
-	int j = 0;
+    int i = 0;
+    int j = 0;
 
 
 test:
 
-	for(i = 0; i < (sizeof(reg_cfg)/sizeof(reg_cfg[0])); i++)
-	{
-		irm_buffer.node_addr = ctl.node_id;//0xff;//ONETOONE;//ALL_NODE;
-		irm_buffer.cmd = 6;         //REG_WR;
+    for(i = 0; i < (sizeof(reg_cfg)/sizeof(reg_cfg[0])); i++)
+    {
+        irm_buffer.node_addr = ctl.node_id;//0xff;//ONETOONE;//ALL_NODE;
+        irm_buffer.cmd = 6;         //REG_WR;
 
-		if(reg_cfg[i].reg == 0x221)
-		{
-			for(j = 0; j < 4; j++)
-			{
-				buffs = &reg_cfg[i];
-				irm_buffer.node_addr = j + 1;   //ONETOONE;//ALL_NODE;
-				buffs->val = buffs->val *(j + 1);
-				irm_buffer.reg = buffs->reg;
-				irm_buffer.val = buffs->val;
-				uart_ioctl(irm_buffer, uart);
-			}
-		}else{
+        if(reg_cfg[i].reg == 0x221)
+        {
+            for(j = 0; j < 4; j++)
+            {
+                buffs = &reg_cfg[i];
+                irm_buffer.node_addr = j + 1;   //ONETOONE;//ALL_NODE;
+                buffs->val = buffs->val *(j + 1);
+                irm_buffer.reg = buffs->reg;
+                irm_buffer.val = buffs->val;
+                uart_ioctl(irm_buffer, uart);
+            }
+        }else{
 
-		buffs = &reg_cfg[i];
-		irm_buffer.reg = buffs->reg;
-		irm_buffer.val = buffs->val;
-//		printf("reg:%x value:%x\n", buffs->reg, buffs->val);
-		uart_ioctl(irm_buffer, uart);
-		}
-		usleep(500);
-	}
-
-
-
-        irm_buffer.node_addr = ctl.node_id; //ONETOONE;//ALL_NODE;
-		irm_buffer.cmd = MOTOR_CTL; //REG_WR;
-		irm_buffer.reg = 0x220;
-		irm_buffer.val = 0;
-        irm_buffer.speed[0] = 2000;//5000;
-        irm_buffer.speed[1] = 2000;//1000;
-        irm_buffer.speed[2] = 2000;//1000;
-        irm_buffer.speed[3] = 2000;//1000;
-//		uart_ioctl(irm_buffer, uart);
-
-	int test = 0;
-	int count = 2000;
-	
-	sleep(1);
-        irm_buffer.speed[0] = 0;//5000;
-//	uart_ioctl(irm_buffer, uart);
-
-#if 0
-	usleep(200);
-	irm_buffer.node_addr = ctl.node_id;//ALL_NODE;
-	irm_buffer.cmd = CL_FAULT;
-   	uart_ioctl(irm_buffer, uart);
-	usleep(2000);
-#endif
-	sleep(1);
-
-//	while(1)
-	{
-		for( j = 0; j < ctl.count; j++)
-		{
-			//printf("speed:%d\n", ctl.speed[j]);
-//			irm_buffer.speed[0] = ctl.speed[j];
-    		irm_buffer.node_addr = ALL_NODE;//ONETOONE;//ALL_NODE;
-			irm_buffer.cmd =  8 ;//+ ctl.node_id;
-    		irm_buffer.speed[0] = ctl.speed[j];
-    		irm_buffer.speed[1] = ctl.speed[j];
-    		irm_buffer.speed[2] = ctl.speed[j];
-    		irm_buffer.speed[3] = ctl.speed[j];
-			{
-				uart_ioctl(irm_buffer, uart);
-				usleep(200);
-			}
-		}
-	}
-
-		sleep(3);
-   		irm_buffer.speed[0] = 0;//ctl.speed[j];
-   		irm_buffer.speed[1] = 0;//ctl.speed[j];
-   		irm_buffer.speed[2] = 0;//ctl.speed[j];
-   		irm_buffer.speed[3] = 0;//ctl.speed[j];
-		uart_ioctl(irm_buffer, uart);
-		sleep(3);
-
-#if 1	//for test sound 
-//	while(1)
-{
-    struct _reg reg_cfg_sound[] = {
-#if 1
-	{0x13d, 0x00   },
-//	{0x00 , 500    },	//delay 500ms
-
-//	{0x0ea, 280    },
-//	{0x12a, 1147   },
-
-//exit sound mode
-	{0x0ff, 0x01   },
-	{0x0ff, 0x00   },
-
-	{0x1f9, 0      },
-
-	{0x13d, 0x00   },
-	{0x0bd, 514    },
-	{0x0be, 8336   },
-
-	{0x1de, 2      },
-	{0x1f8, 2      },
-
-	{0x10d, 918    },
-	{0x020, 1800   },
-	{0x0c3, 76     },
-
-	{0x0bc, 4095   },
-	{0x15e, 0      },
-
-//sound init
-	
-	{0x0bd, 0x00   },
-	{0x0be, 0x2080 },
-	{0x13d, 0x00   },
-	{0x1de, 0      },
-	{0x1f8, 0      },
-	{0x10d, 0      },
-	{0x020, 0      },
-	{0x0c3, 0x40   },
-	{0x1f9, 0      },
-	{0x1f9, 0      },
-	{0x09b, 0      },
-	{0x0bc, 3855   },
-	{0x160, 2      },
-	{0x10b, 29     },
-	{0x15e, 0x00   },
-
-//sound
-#if 0
-	{0x13d, 0x2    },
-	{0x1f9, 1492   },	//30%
-	{0x00 , 500    },	//delay 500ms
-	{0x1f9, 0      },
-	{0x10b, 36     },
-	{0x1f9, 1492   },	//30%
-	{0x00 , 500    },	//delay 500ms
-	{0x1f9, 0      },
-
-	{0x0ff, 0x01   },
-	{0x0ff, 0x00   },
-#else
-	{0x13d, 0x2    },
-	{0x1f9, 1492   },	//30%
-	{0x00 , 500    },	//delay 500ms
-	{0x13d, 4      },
-	{0x10b, 36     },
-	{0x13d, 2   },	//30%
-	{0x00 , 500    },	//delay 500ms
-	{0x13d, 0      },
-
-	{0x0ff, 0x01   },
-	{0x0ff, 0x00   },
-
-#endif
-#endif
-//test sound
-
-#if 1
-//	{0x10b, 36     },
-//exit sound mode
-	{0x0ff, 0x01   },
-	{0x0ff, 0x00   },
-
-	{0x1f9, 0      },
-
-	{0x13d, 0x00   },
-	{0x0bd, 514    },
-	{0x0be, 8336   },
-
-	{0x1de, 2      },
-	{0x1f8, 2      },
-
-	{0x10d, 918    },
-	{0x020, 1800   },
-	{0x0c3, 76     },
-
-	{0x10b, 0     },
-	{0x0bc, 4095   },
-	{0x15e, 0      },
-		{0x0ff, 0x01   },
-	{0x0ff, 0x00   },
-
-
-//	{0x13d, 0x00   },
-#else
-
-	{0x13d, 0x00   },
-	{0x0bd, 514    },
-	{0x0be, 8336   },
-
-	{0x1de, 2      },
-	{0x1f8, 2      },
-
-	{0x10d, 918    },
-    {0x020, 1835   },
-    {0x0c3, 76     },
-    {0x1f9, 0      },
-	{0x09b, 0      },
-
-	{0x0bc, 4095   },
-	{0x160, 0      },
-	{0x10b, 36     },
-	{0x15e, 0      },
-//	{0x13d, 0x04   },
-#endif
-
-
-	};
-
-	printf("count:%lu \n", (sizeof(reg_cfg_sound) / sizeof(reg_cfg_sound[0])));
-	irm_buffer.node_addr = ctl.node_id;//ALL_NODE;//ctl.node_id;//ALL_NODE;
-	irm_buffer.cmd = 6;         //REG_WR;
-
-	for(i = 0; i < (sizeof(reg_cfg_sound) / sizeof(reg_cfg_sound[0])); i++)
-	{
-		if(reg_cfg_sound[i].reg == 0x00)
-		{
-			sleep(1);
-			continue;
-		}
-		irm_buffer.reg = reg_cfg_sound[i].reg;
-		irm_buffer.val = reg_cfg_sound[i].val;
-		printf("reg:%x value:%x\n", reg_cfg_sound[i].reg, reg_cfg_sound[i].val);
-		uart_ioctl(irm_buffer, uart);
-		usleep(1000);
-	}
-}
-#if 0
-	usleep(200);
- 	irm_buffer.node_addr = ctl.node_id;//ALL_NODE;
-	irm_buffer.cmd = CL_FAULT;
-   	uart_ioctl(irm_buffer, uart);
-	usleep(2000);
-#endif
-goto test;
-
-	for(i = 0; i < (sizeof(reg_cfg)/sizeof(reg_cfg[0])); i++)
-	{
-		irm_buffer.node_addr = ctl.node_id;//0xff;//ONETOONE;//ALL_NODE;
-		irm_buffer.cmd = 6;         //REG_WR;
-
-		if(reg_cfg[i].reg == 0x221)
-		{
-			for(j = 0; j < 4; j++)
-			{
-				buffs = &reg_cfg[i];
-				irm_buffer.node_addr = j + 1;   //ONETOONE;//ALL_NODE;
-				buffs->val = buffs->val *(j + 1);
-				irm_buffer.reg = buffs->reg;
-				irm_buffer.val = buffs->val;
-				uart_ioctl(irm_buffer, uart);
-			}
-		}else{
-
-		buffs = &reg_cfg[i];
-		irm_buffer.reg = buffs->reg;
-		irm_buffer.val = buffs->val;
-//		printf("reg:%x value:%x\n", buffs->reg, buffs->val);
-		uart_ioctl(irm_buffer, uart);
-		}
-		usleep(500);
-	}
-
-	return 0;
-#endif
-	goto test;
-	
-#if 0
-	int irm_actuator_controls_0 = -1;
-
-	irm_actuator_controls_0 = orb_subscribe(ORB_ID(actuator_controls_0));
-
-	if (irm_actuator_controls_0 < 0)
-		warnx("subscription(s) failed");
-
-//	unsigned update_interval = 100;
-	struct pollfd fds[1];
-	fds[0].fd = irm_actuator_controls_0;
-	fds[0].events = POLLIN;
-//	orb_set_interval(irm_actuator_controls_0, update_interval);
-	int ret = 0;
-	struct actuator_controls_s controls;
-   	int count = 1;
-
-	perf_counter_t irm_loop_perf;
-
-	irm_loop_perf = perf_alloc(PC_COUNT, "uart_irm");
-
-		perf_begin(irm_loop_perf);
-	while (!thread_should_exit) {
-		ret = px4_poll(&fds[0], (sizeof(fds) / sizeof(fds[0])), 0);
-		perf_event_count(irm_loop_perf);
-		if(ret < 0){
-			irm_buffer.speed[0] = 10;
-			continue;
-		}
-
-		if(fds[0].revents & POLLIN)
-		{
-			orb_copy(ORB_ID(actuator_controls_0), irm_actuator_controls_0, &controls);
-  	 	 	{
-				if(count == 5)
-				{
-					count = 1;
-				}
-    			irm_buffer.node_addr = 0;//ONETOONE;//ALL_NODE;
-				irm_buffer.cmd = 11;
-    			irm_buffer.speed[0] = (double)controls.control[0];
-    			irm_buffer.speed[1] = (double)controls.control[1];
-    			irm_buffer.speed[2] = (double)controls.control[2];
-    			irm_buffer.speed[3] = (double)controls.control[3];
-    			uart_ioctl(irm_buffer, uart);
-				count = count + 1;
-				usleep(100);
-#if 0
-			usleep(200);
-   	 		irm_buffer.node_addr = count + 1;//ONETOONE;//ALL_NODE;
-			irm_buffer.cmd = CL_FAULT;
-   	 		uart_ioctl(irm_buffer, uart);
-#endif
-   		 	}
-		}
+            buffs = &reg_cfg[i];
+            irm_buffer.reg = buffs->reg;
+            irm_buffer.val = buffs->val;
+            //		printf("reg:%x value:%x\n", buffs->reg, buffs->val);
+            uart_ioctl(irm_buffer, uart);
+        }
+        usleep(500);
     }
 
-	perf_end(irm_loop_perf);
-#endif
-	/* Reset the UART flags to original state */
-	tcsetattr(uart, TCSANOW, &uart_config_original);
-	close(uart);
-	thread_running = false;
 
-	return 0;
+
+    irm_buffer.node_addr = ctl.node_id; //ONETOONE;//ALL_NODE;
+    irm_buffer.cmd = MOTOR_CTL; //REG_WR;
+    irm_buffer.reg = 0x220;
+    irm_buffer.val = 0;
+    irm_buffer.speed[0] = 2000;//5000;
+    irm_buffer.speed[1] = 2000;//1000;
+    irm_buffer.speed[2] = 2000;//1000;
+    irm_buffer.speed[3] = 2000;//1000;
+    //		uart_ioctl(irm_buffer, uart);
+
+    int test = 0;
+    int count = 2000;
+
+    sleep(1);
+    irm_buffer.speed[0] = 0;//5000;
+    //	uart_ioctl(irm_buffer, uart);
+
+#if 0
+    usleep(200);
+    irm_buffer.node_addr = ctl.node_id;//ALL_NODE;
+    irm_buffer.cmd = CL_FAULT;
+    uart_ioctl(irm_buffer, uart);
+    usleep(2000);
+#endif
+    sleep(1);
+
+    //	while(1)
+    {
+        for( j = 0; j < ctl.count; j++)
+        {
+            //printf("speed:%d\n", ctl.speed[j]);
+            //			irm_buffer.speed[0] = ctl.speed[j];
+            irm_buffer.node_addr = ALL_NODE;//ONETOONE;//ALL_NODE;
+            irm_buffer.cmd =  8 ;//+ ctl.node_id;
+            irm_buffer.speed[0] = ctl.speed[j];
+            irm_buffer.speed[1] = ctl.speed[j];
+            irm_buffer.speed[2] = ctl.speed[j];
+            irm_buffer.speed[3] = ctl.speed[j];
+            {
+                uart_ioctl(irm_buffer, uart);
+                usleep(200);
+            }
+        }
+    }
+
+    sleep(3);
+    irm_buffer.speed[0] = 0;//ctl.speed[j];
+    irm_buffer.speed[1] = 0;//ctl.speed[j];
+    irm_buffer.speed[2] = 0;//ctl.speed[j];
+    irm_buffer.speed[3] = 0;//ctl.speed[j];
+    uart_ioctl(irm_buffer, uart);
+    sleep(3);
+
+#if 1	//for test sound
+    //	while(1)
+    {
+        struct _reg reg_cfg_sound[] = {
+#if 1
+            {0x13d, 0x00   },
+            //	{0x00 , 500    },	//delay 500ms
+
+            //	{0x0ea, 280    },
+            //	{0x12a, 1147   },
+
+            //exit sound mode
+            {0x0ff, 0x01   },
+            {0x0ff, 0x00   },
+
+            {0x1f9, 0      },
+
+            {0x13d, 0x00   },
+            {0x0bd, 514    },
+            {0x0be, 8336   },
+
+            {0x1de, 2      },
+            {0x1f8, 2      },
+
+            {0x10d, 918    },
+            {0x020, 1800   },
+            {0x0c3, 76     },
+
+            {0x0bc, 4095   },
+            {0x15e, 0      },
+
+            //sound init
+
+            {0x0bd, 0x00   },
+            {0x0be, 0x2080 },
+            {0x13d, 0x00   },
+            {0x1de, 0      },
+            {0x1f8, 0      },
+            {0x10d, 0      },
+            {0x020, 0      },
+            {0x0c3, 0x40   },
+            {0x1f9, 0      },
+            {0x1f9, 0      },
+            {0x09b, 0      },
+            {0x0bc, 3855   },
+            {0x160, 2      },
+            {0x10b, 29     },
+            {0x15e, 0x00   },
+
+            //sound
+#if 0
+            {0x13d, 0x2    },
+            {0x1f9, 1492   },	//30%
+            {0x00 , 500    },	//delay 500ms
+            {0x1f9, 0      },
+            {0x10b, 36     },
+            {0x1f9, 1492   },	//30%
+            {0x00 , 500    },	//delay 500ms
+            {0x1f9, 0      },
+
+            {0x0ff, 0x01   },
+            {0x0ff, 0x00   },
+#else
+            {0x13d, 0x2    },
+            {0x1f9, 1492   },	//30%
+            {0x00 , 500    },	//delay 500ms
+            {0x13d, 4      },
+            {0x10b, 36     },
+            {0x13d, 2   },	//30%
+            {0x00 , 500    },	//delay 500ms
+            {0x13d, 0      },
+
+            {0x0ff, 0x01   },
+            {0x0ff, 0x00   },
+
+#endif
+#endif
+            //test sound
+
+#if 1
+            //	{0x10b, 36     },
+            //exit sound mode
+            {0x0ff, 0x01   },
+            {0x0ff, 0x00   },
+
+            {0x1f9, 0      },
+
+            {0x13d, 0x00   },
+            {0x0bd, 514    },
+            {0x0be, 8336   },
+
+            {0x1de, 2      },
+            {0x1f8, 2      },
+
+            {0x10d, 918    },
+            {0x020, 1800   },
+            {0x0c3, 76     },
+
+            {0x10b, 0     },
+            {0x0bc, 4095   },
+            {0x15e, 0      },
+            {0x0ff, 0x01   },
+            {0x0ff, 0x00   },
+
+
+            //	{0x13d, 0x00   },
+#else
+
+            {0x13d, 0x00   },
+            {0x0bd, 514    },
+            {0x0be, 8336   },
+
+            {0x1de, 2      },
+            {0x1f8, 2      },
+
+            {0x10d, 918    },
+            {0x020, 1835   },
+            {0x0c3, 76     },
+            {0x1f9, 0      },
+            {0x09b, 0      },
+
+            {0x0bc, 4095   },
+            {0x160, 0      },
+            {0x10b, 36     },
+            {0x15e, 0      },
+            //	{0x13d, 0x04   },
+#endif
+
+
+        };
+
+        printf("count:%lu \n", (sizeof(reg_cfg_sound) / sizeof(reg_cfg_sound[0])));
+        irm_buffer.node_addr = ctl.node_id;//ALL_NODE;//ctl.node_id;//ALL_NODE;
+        irm_buffer.cmd = 6;         //REG_WR;
+
+        for(i = 0; i < (sizeof(reg_cfg_sound) / sizeof(reg_cfg_sound[0])); i++)
+        {
+            if(reg_cfg_sound[i].reg == 0x00)
+            {
+                sleep(1);
+                continue;
+            }
+            irm_buffer.reg = reg_cfg_sound[i].reg;
+            irm_buffer.val = reg_cfg_sound[i].val;
+            printf("reg:%x value:%x\n", reg_cfg_sound[i].reg, reg_cfg_sound[i].val);
+            uart_ioctl(irm_buffer, uart);
+            usleep(1000);
+        }
+    }
+#if 0
+    usleep(200);
+    irm_buffer.node_addr = ctl.node_id;//ALL_NODE;
+    irm_buffer.cmd = CL_FAULT;
+    uart_ioctl(irm_buffer, uart);
+    usleep(2000);
+#endif
+    goto test;
+
+    for(i = 0; i < (sizeof(reg_cfg)/sizeof(reg_cfg[0])); i++)
+    {
+        irm_buffer.node_addr = ctl.node_id;//0xff;//ONETOONE;//ALL_NODE;
+        irm_buffer.cmd = 6;         //REG_WR;
+
+        if(reg_cfg[i].reg == 0x221)
+        {
+            for(j = 0; j < 4; j++)
+            {
+                buffs = &reg_cfg[i];
+                irm_buffer.node_addr = j + 1;   //ONETOONE;//ALL_NODE;
+                buffs->val = buffs->val *(j + 1);
+                irm_buffer.reg = buffs->reg;
+                irm_buffer.val = buffs->val;
+                uart_ioctl(irm_buffer, uart);
+            }
+        }else{
+
+            buffs = &reg_cfg[i];
+            irm_buffer.reg = buffs->reg;
+            irm_buffer.val = buffs->val;
+            //		printf("reg:%x value:%x\n", buffs->reg, buffs->val);
+            uart_ioctl(irm_buffer, uart);
+        }
+        usleep(500);
+    }
+
+    return 0;
+#endif
+    goto test;
+
+#if 0
+    int irm_actuator_controls_0 = -1;
+
+    irm_actuator_controls_0 = orb_subscribe(ORB_ID(actuator_controls_0));
+
+    if (irm_actuator_controls_0 < 0)
+        warnx("subscription(s) failed");
+
+    //	unsigned update_interval = 100;
+    struct pollfd fds[1];
+    fds[0].fd = irm_actuator_controls_0;
+    fds[0].events = POLLIN;
+    //	orb_set_interval(irm_actuator_controls_0, update_interval);
+    int ret = 0;
+    struct actuator_controls_s controls;
+    int count = 1;
+
+    perf_counter_t irm_loop_perf;
+
+    irm_loop_perf = perf_alloc(PC_COUNT, "uart_irm");
+
+    perf_begin(irm_loop_perf);
+    while (!thread_should_exit) {
+        ret = px4_poll(&fds[0], (sizeof(fds) / sizeof(fds[0])), 0);
+        perf_event_count(irm_loop_perf);
+        if(ret < 0){
+            irm_buffer.speed[0] = 10;
+            continue;
+        }
+
+        if(fds[0].revents & POLLIN)
+        {
+            orb_copy(ORB_ID(actuator_controls_0), irm_actuator_controls_0, &controls);
+            {
+                if(count == 5)
+                {
+                    count = 1;
+                }
+                irm_buffer.node_addr = 0;//ONETOONE;//ALL_NODE;
+                irm_buffer.cmd = 11;
+                irm_buffer.speed[0] = (double)controls.control[0];
+                irm_buffer.speed[1] = (double)controls.control[1];
+                irm_buffer.speed[2] = (double)controls.control[2];
+                irm_buffer.speed[3] = (double)controls.control[3];
+                uart_ioctl(irm_buffer, uart);
+                count = count + 1;
+                usleep(100);
+#if 0
+                usleep(200);
+                irm_buffer.node_addr = count + 1;//ONETOONE;//ALL_NODE;
+                irm_buffer.cmd = CL_FAULT;
+                uart_ioctl(irm_buffer, uart);
+#endif
+            }
+        }
+    }
+
+    perf_end(irm_loop_perf);
+#endif
+    /* Reset the UART flags to original state */
+    tcsetattr(uart, TCSANOW, &uart_config_original);
+    close(uart);
+    thread_running = false;
+
+    return 0;
 
 }
 
 /**
  * irm init
-**/
+ **/
 static void irm_init(void)
 {
-	int ret;
+    int ret;
 
-	ret = irm_create_file(LOG_FILE_PATH);
-	if (ret != 0 )
-	{
-		warnx("irm create log file error");
-	}
+    ret = irm_create_file(LOG_FILE_PATH);
+    if (ret != 0 )
+    {
+        warnx("irm create log file error");
+    }
 
 }
 
@@ -1119,71 +1117,71 @@ static void irm_init(void)
  */
 int main(int argc, char *argv[])
 {
-	if (argc < 2) {
-		warnx("missing command");
-		usage();
-	}
+    if (argc < 2) {
+        warnx("missing command");
+        usage();
+    }
 
-	if (!strcmp(argv[1], "start")) {
+    if (!strcmp(argv[1], "start")) {
 
-		/* this is not an error */
-		if (thread_running) {
-			errx(0, "irm already running");
-		}
+        /* this is not an error */
+        if (thread_running) {
+            errx(0, "irm already running");
+        }
 
-		irm_init();
-		thread_should_exit = false;
-//		mti_task = px4_task_spawn_cmd("mti",
-//						SCHED_DEFAULT,
-//						200,
-//						1100,
-//						mti_thread_main,
-//						(char *const *)argv);
+        irm_init();
+        thread_should_exit = false;
+        //		mti_task = px4_task_spawn_cmd("mti",
+        //						SCHED_DEFAULT,
+        //						200,
+        //						1100,
+        //						mti_thread_main,
+        //						(char *const *)argv);
 
-		int i = 0;
-		ctl.count = argc - 3;
-		ctl.node_id = atoi(argv[2]);
-		//printf("node id:%d, speed count:%d\n", ctl.node_id, ctl.count);
-		for(i = 0; i < argc - 3; i++)
-		{
-			ctl.speed[i] = atoi(argv[i + 3]);
-			//printf("speed[%d]%d\n", i+1, ctl.speed[i]);
-		}
-	
-		irm_thread_main(argc, argv);
+        int i = 0;
+        ctl.count = argc - 3;
+        ctl.node_id = atoi(argv[2]);
+        //printf("node id:%d, speed count:%d\n", ctl.node_id, ctl.count);
+        for(i = 0; i < argc - 3; i++)
+        {
+            ctl.speed[i] = atoi(argv[i + 3]);
+            //printf("speed[%d]%d\n", i+1, ctl.speed[i]);
+        }
 
-		while (!thread_running) {
-			usleep(200);
-		}
+        irm_thread_main(argc, argv);
 
-		exit(0);
-	}
+        while (!thread_running) {
+            usleep(200);
+        }
 
-	if (!strcmp(argv[1], "stop")) {
+        exit(0);
+    }
 
-		/* this is not an error */
-		if (!thread_running) {
-			errx(0, "irm already stopped");
-		}
+    if (!strcmp(argv[1], "stop")) {
 
-		thread_should_exit = true;
+        /* this is not an error */
+        if (!thread_running) {
+            errx(0, "irm already stopped");
+        }
 
-		while (thread_running) {
-			usleep(1000000);
-			warnx(".");
-		}
+        thread_should_exit = true;
 
-		warnx("terminated.");
-		exit(0);
-	}
+        while (thread_running) {
+            usleep(1000000);
+            warnx(".");
+        }
 
-	if (!strcmp(argv[1], "status")) {
-		} else {
-			errx(1, "not running");
-		}
+        warnx("terminated.");
+        exit(0);
+    }
 
-	warnx("unrecognized command");
-	usage();
+    if (!strcmp(argv[1], "status")) {
+    } else {
+        errx(1, "not running");
+    }
 
-	return 0;
+    warnx("unrecognized command");
+    usage();
+
+    return 0;
 }

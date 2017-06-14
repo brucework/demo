@@ -11,7 +11,7 @@ $(SUBDIRS):ECHO
 	make -C $@
 
 $(CORE_OBJS):%.o:%.c
-	$(CC) -c $^ -o $(ROOT_DIR)/$(OBJS_DIR)/$@
+	$(CC) -c $^ -o $(ROOT_DIR)/$(OBJS_DIR)/$@ $(USERINCLUDE)
 fread:$(CORE_OBJS)
 	$(CC) $(ROOT_DIR)/$(OBJS_DIR)/$^ -o $(ROOT_DIR)/$(BIN_DIR)/$@ $(C_FLAGS)
 
