@@ -1,22 +1,22 @@
-SUBDIRS=$(shell ls -l | grep ^d | awk '{print $$9}')
+SUBPATHS=$(shell ls -l | grep ^d | awk '{print $$9}')
 
-objs := $(ROOT_DIR)/$(OBJS_DIR)/fread.o
+objs := $(ROOT_PATH)/$(OBJS_PATH)/fread.o
 
 C_FLAGS := -static
 
 CORE_SOURCE=${wildcard *.c}
 CORE_OBJS=${patsubst %.c, %.o, $(CORE_SOURCE)}
-all:$(SUBDIRS) $(CORE_OBJS) fread
-$(SUBDIRS):ECHO
+all:$(SUBPATHS) $(CORE_OBJS) fread
+$(SUBPATHS):ECHO
 	make -C $@
 
 $(CORE_OBJS):%.o:%.c
-	$(CC) -c $^ -o $(ROOT_DIR)/$(OBJS_DIR)/$@ $(USERINCLUDE)
+	$(CC) -c $^ -o $(ROOT_PATH)/$(OBJS_PATH)/$@ $(INC_PATH)
 fread:$(CORE_OBJS)
-	$(CC) $(ROOT_DIR)/$(OBJS_DIR)/$^ -o $(ROOT_DIR)/$(BIN_DIR)/$@ $(C_FLAGS)
+	$(CC) $(ROOT_PATH)/$(OBJS_PATH)/$^ -o $(ROOT_PATH)/$(BIN_PATH)/$@ $(C_FLAGS)
 
 ECHO:
-	@echo $(SUBDIRS)
+	@echo $(SUBPATHS)
 
 
 

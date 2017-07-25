@@ -19,36 +19,43 @@ AWK		= awk
 Q		= @
 BUILD_CFLAGS =
 
-SUBDIRS = $(shell ls -l | grep ^d | awk '{if($$9 !="out" && $$9 != "include" && $$9 != "lib") print $$9}')
+#SUBPATHS = $(shell ls -l | grep ^d | awk '{if($$9 !="out" && $$9 != "include" && $$9 != "lib" && $$9 != "modules") print $$9}')
+LIBPATH = lib
+SUBPATH = src
+
 OUT = $(shell ls -l | grep ^d | awk '{if($$9 =="out") print $$9}')
 
-ROOT_DIR = $(shell pwd)
+ROOT_PATH = $(shell pwd)
 
-OBJS_DIR = out/obj
+OBJS_PATH = out/obj
 
-BIN_DIR = out/bin
+BIN_PATH = out/bin
+
+LIB_PATH := out/lib
 
 CODE_SOURCE = ${wildcard *.c}
 
 CODE_OBJS = ${patsubst %.c, %.o, $(CODE_SOURCE)}
 
-USERINCLUDE := -I$(ROOT_DIR)/include
+INC_PATH := -I$(ROOT_PATH)/include
 
-USERLIB := -L$(ROOT_DIR)/lib
+EX_LIB_PATH := $(ROOT_PATH)/lib
 
-export CC ROOT_DIR OBJS_DIR BIN_DIR USERINCLUDE USERLIB
+export CC ROOT_PATH OBJS_PATH BIN_PATH LIB_PATH INC_PATH EX_LIB_PATH
 
-
-all:$(SUBDIRS) $(CODE_OBJS)
+all:$(SUBPATH) $(CODE_OBJS)
 	make -C $^
+#	make -C $@
 
+$(SUBPATH):$(LIBPATH)
+	make -C $^
 #OUT:ECHO
 #	make -C out
 #ECHO:
-#	@echo $(SUBDIRS)
+#	@echo $(SUBPATHS)
 #$(CODE_OBJS):%.o:%.c
-#	$(CC) -c $^ -o $(ROOT_DIR)/$(OBJS_DIR)/$@
+#	$(CC) -c $^ -o $(ROOT_PATH)/$(OBJS_PATH)/$@
 
 clean:
-	@rm -rf $(OBJS_DIR)/*
-	@rm -rf $(BIN_DIR)/*
+	rm -rf $(OBJS_PATH)/*
+	rm -rf $(BIN_PATH)/*

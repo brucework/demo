@@ -1,21 +1,21 @@
-SUBDIRS=$(shell ls -l | grep ^d | awk '{print $$9}')
+SUBPATHS=$(shell ls -l | grep ^d | awk '{print $$9}')
 
-objs := $(ROOT_DIR)/$(OBJS_DIR)/shm_write.o
+objs := $(ROOT_PATH)/$(OBJS_PATH)/shm_write.o
 
 CORE_SOURCE=${wildcard *.c}
 CORE_OBJS=${patsubst %.c, %.o, $(CORE_SOURCE)}
-all:$(SUBDIRS) $(CORE_OBJS) shm_write
-$(SUBDIRS):ECHO
+all:$(SUBPATHS) $(CORE_OBJS) shm_write
+$(SUBPATHS):ECHO
 	make -C $@
 
 
 $(CORE_OBJS):%.o:%.c
-	$(CC) -c $^ -o $(ROOT_DIR)/$(OBJS_DIR)/$@ $(USERINCLUDE)
+	$(CC) -c $^ -o $(ROOT_PATH)/$(OBJS_PATH)/$@ $(INC_PATH)
 shm_write:$(CORE_OBJS)
-	$(CC) $(ROOT_DIR)/$(OBJS_DIR)/$^ -o $(ROOT_DIR)/$(BIN_DIR)/$@  $(USERINCLUDE)
+	$(CC) $(ROOT_PATH)/$(OBJS_PATH)/$^ -o $(ROOT_PATH)/$(BIN_PATH)/$@
 
 ECHO:
-	@echo $(SUBDIRS)
+	@echo $(SUBPATHS)
 
 
 

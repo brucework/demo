@@ -1,0 +1,280 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ALL_NODE	src/uart_irm/uart_irm_sound_v0.02.c	295;"	d	file:
+ALL_NODE	src/uart_irm/uart_irm_v0.04.c	297;"	d	file:
+AR	Makefile	/^AR		= $(CROSS_COMPILE)ar$/;"	m
+ARCH	Makefile	/^ARCH ?= ARM$/;"	m
+AS	Makefile	/^AS		= $(CROSS_COMPILE)as$/;"	m
+AWK	Makefile	/^AWK		= awk$/;"	m
+BIN_PATH	Makefile	/^BIN_PATH = out\/bin$/;"	m
+BUILD_CFLAGS	Makefile	/^BUILD_CFLAGS =$/;"	m
+CC	Makefile	/^CC		= $(CROSS_COMPILE)gcc$/;"	m
+CHANGE_CTL_MODE	src/uart_irm/uart_irm_sound_v0.02.c	/^    CHANGE_CTL_MODE,$/;"	e	enum:__anon1	file:
+CHANGE_CTL_MODE	src/uart_irm/uart_irm_v0.04.c	/^    CHANGE_CTL_MODE,$/;"	e	enum:__anon2	file:
+CHECK_SUM	src/uart_irm/uart_irm_sound_v0.02.c	304;"	d	file:
+CHECK_SUM	src/uart_irm/uart_irm_v0.04.c	306;"	d	file:
+CL_FAULT	src/uart_irm/uart_irm_sound_v0.02.c	/^    CL_FAULT,$/;"	e	enum:__anon1	file:
+CL_FAULT	src/uart_irm/uart_irm_v0.04.c	/^    CL_FAULT,$/;"	e	enum:__anon2	file:
+CODE_OBJS	Makefile	/^CODE_OBJS = ${patsubst %.c, %.o, $(CODE_SOURCE)}$/;"	m
+CODE_SOURCE	Makefile	/^CODE_SOURCE = ${wildcard *.c}$/;"	m
+CORE_OBJS	modules/Makefile	/^CORE_OBJS=${patsubst %.c, %.o, $(CORE_SOURCE)}$/;"	m
+CORE_OBJS	modules/test/Makefile	/^CORE_OBJS=${patsubst %.c, %.o, $(CORE_SOURCE)}$/;"	m
+CORE_OBJS	out/Makefile	/^CORE_OBJS=${patsubst %.c, %.o, $(CORE_SOURCE)}$/;"	m
+CORE_OBJS	src/Makefile	/^CORE_OBJS=${patsubst %.c, %.o, $(CORE_SOURCE)}$/;"	m
+CORE_OBJS	src/file_ops/Makefile	/^CORE_OBJS=${patsubst %.c, %.o, $(CORE_SOURCE)}$/;"	m
+CORE_OBJS	src/print/Makefile	/^CORE_OBJS=${patsubst %.c, %.o, $(CORE_SOURCE)}$/;"	m
+CORE_OBJS	src/pthread/Makefile	/^CORE_OBJS=${patsubst %.c, %.o, $(CORE_SOURCE)}$/;"	m
+CORE_OBJS	src/shm/Makefile	/^CORE_OBJS=${patsubst %.c, %.o, $(CORE_SOURCE)}$/;"	m
+CORE_OBJS	src/systime/Makefile	/^CORE_OBJS=${patsubst %.c, %.o, $(CORE_SOURCE)}$/;"	m
+CORE_OBJS	src/uart_irm/Makefile	/^CORE_OBJS=${patsubst %.c, %.o, $(CORE_SOURCE)}$/;"	m
+CORE_SOURCE	modules/Makefile	/^CORE_SOURCE=${wildcard *.c}$/;"	m
+CORE_SOURCE	modules/test/Makefile	/^CORE_SOURCE=${wildcard *.c}$/;"	m
+CORE_SOURCE	out/Makefile	/^CORE_SOURCE=${wildcard *.c}$/;"	m
+CORE_SOURCE	src/Makefile	/^CORE_SOURCE=${wildcard *.c}$/;"	m
+CORE_SOURCE	src/file_ops/Makefile	/^CORE_SOURCE=${wildcard *.c}$/;"	m
+CORE_SOURCE	src/print/Makefile	/^CORE_SOURCE=${wildcard *.c}$/;"	m
+CORE_SOURCE	src/pthread/Makefile	/^CORE_SOURCE=${wildcard *.c}$/;"	m
+CORE_SOURCE	src/shm/Makefile	/^CORE_SOURCE=${wildcard *.c}$/;"	m
+CORE_SOURCE	src/systime/Makefile	/^CORE_SOURCE=${wildcard *.c}$/;"	m
+CORE_SOURCE	src/uart_irm/Makefile	/^CORE_SOURCE=${wildcard *.c}$/;"	m
+CPP	Makefile	/^CPP		= $(CC) -E$/;"	m
+CROSS_COMPILE	Makefile	/^CROSS_COMPILE ?=$/;"	m
+CTL_NODE1	src/uart_irm/uart_irm_sound_v0.02.c	/^    CTL_NODE1 = 8,$/;"	e	enum:__anon1	file:
+CTL_NODE1	src/uart_irm/uart_irm_v0.04.c	/^    CTL_NODE1 = 8,$/;"	e	enum:__anon2	file:
+CTL_NODE2	src/uart_irm/uart_irm_sound_v0.02.c	/^    CTL_NODE2,$/;"	e	enum:__anon1	file:
+CTL_NODE2	src/uart_irm/uart_irm_v0.04.c	/^    CTL_NODE2,$/;"	e	enum:__anon2	file:
+CTL_NODE3	src/uart_irm/uart_irm_sound_v0.02.c	/^    CTL_NODE3,$/;"	e	enum:__anon1	file:
+CTL_NODE3	src/uart_irm/uart_irm_v0.04.c	/^    CTL_NODE3,$/;"	e	enum:__anon2	file:
+CTL_NODE4	src/uart_irm/uart_irm_sound_v0.02.c	/^    CTL_NODE4,$/;"	e	enum:__anon1	file:
+CTL_NODE4	src/uart_irm/uart_irm_v0.04.c	/^    CTL_NODE4,$/;"	e	enum:__anon2	file:
+C_FLAGS	modules/test/Makefile	/^C_FLAGS := -static$/;"	m
+C_FLAGS	src/file_ops/Makefile	/^C_FLAGS := -static$/;"	m
+C_FLAGS	src/print/Makefile	/^C_FLAGS := -static$/;"	m
+C_FLAGS	src/pthread/Makefile	/^C_FLAGS := -lpthread$/;"	m
+C_FLAGS	src/uart_irm/Makefile	/^C_FLAGS := -static$/;"	m
+DEBUG	include/debug.h	14;"	d
+ERR	include/debug.h	15;"	d
+EX_LIB_PATH	Makefile	/^EX_LIB_PATH := $(ROOT_PATH)\/lib$/;"	m
+FILEPATH	src/file_ops/fread.c	14;"	d	file:
+FRAME_LENS	src/uart_irm/uart_irm_sound_v0.02.c	225;"	d	file:
+FRAME_LENS	src/uart_irm/uart_irm_v0.04.c	227;"	d	file:
+INC_PATH	Makefile	/^INC_PATH := -I$(ROOT_PATH)\/include$/;"	m
+INFO	include/debug.h	12;"	d
+LD	Makefile	/^LD		= $(CROSS_COMPILE)ld$/;"	m
+LIB_PATH	Makefile	/^LIB_PATH := out\/lib$/;"	m
+LOG_FILE_PATH	src/uart_irm/uart_irm_sound_v0.02.c	77;"	d	file:
+LOG_FILE_PATH	src/uart_irm/uart_irm_v0.04.c	77;"	d	file:
+MOTOR_CTL	src/uart_irm/uart_irm_sound_v0.02.c	/^    MOTOR_CTL,$/;"	e	enum:__anon1	file:
+MOTOR_CTL	src/uart_irm/uart_irm_v0.04.c	/^    MOTOR_CTL,$/;"	e	enum:__anon2	file:
+NM	Makefile	/^NM		= $(CROSS_COMPILE)nm$/;"	m
+NONE	include/debug.h	11;"	d
+OBJCOPY	Makefile	/^OBJCOPY		= $(CROSS_COMPILE)objcopy$/;"	m
+OBJDUMP	Makefile	/^OBJDUMP		= $(CROSS_COMPILE)objdump$/;"	m
+OBJS_PATH	Makefile	/^OBJS_PATH = out\/obj$/;"	m
+ONETOONE	src/uart_irm/uart_irm_sound_v0.02.c	302;"	d	file:
+ONETOONE	src/uart_irm/uart_irm_v0.04.c	304;"	d	file:
+OUT	Makefile	/^OUT = $(shell ls -l | grep ^d | awk '{if($$9 =="out") print $$9}')$/;"	m
+OUT	modules/Makefile	/^OUT = out$/;"	m
+OUT	src/Makefile	/^OUT = out$/;"	m
+PACKAGE_HEADER_LENS	src/uart_irm/uart_irm_sound_v0.02.c	231;"	d	file:
+PACKAGE_HEADER_LENS	src/uart_irm/uart_irm_v0.04.c	233;"	d	file:
+PATCHLEVEL	Makefile	/^PATCHLEVEL = 0$/;"	m
+PATH_SERIAL_FD	src/uart_irm/uart_irm_sound_v0.02.c	73;"	d	file:
+PATH_SERIAL_FD	src/uart_irm/uart_irm_v0.04.c	73;"	d	file:
+Q	Makefile	/^Q		= @$/;"	m
+RD_STATUS	src/uart_irm/uart_irm_sound_v0.02.c	/^    RD_STATUS = 0,$/;"	e	enum:__anon1	file:
+RD_STATUS	src/uart_irm/uart_irm_v0.04.c	/^    RD_STATUS = 0,$/;"	e	enum:__anon2	file:
+REG_FILE	src/uart_irm/uart_irm_v0.04.c	653;"	d	file:
+REG_RD	src/uart_irm/uart_irm_sound_v0.02.c	/^    REG_RD = 5,$/;"	e	enum:__anon1	file:
+REG_RD	src/uart_irm/uart_irm_v0.04.c	/^    REG_RD = 5,$/;"	e	enum:__anon2	file:
+REG_WR	src/uart_irm/uart_irm_sound_v0.02.c	/^    REG_WR,$/;"	e	enum:__anon1	file:
+REG_WR	src/uart_irm/uart_irm_v0.04.c	/^    REG_WR,$/;"	e	enum:__anon2	file:
+ROOT_PATH	Makefile	/^ROOT_PATH = $(shell pwd)$/;"	m
+SERIAL_BITRATE	src/uart_irm/uart_irm_sound_v0.02.c	74;"	d	file:
+SERIAL_BITRATE	src/uart_irm/uart_irm_v0.04.c	74;"	d	file:
+STRIP	Makefile	/^STRIP		= $(CROSS_COMPILE)strip$/;"	m
+SUBPATH	Makefile	/^SUBPATH = src$/;"	m
+SUBPATHS	modules/Makefile	/^SUBPATHS=$(shell ls -l | grep ^d | awk '{print $$9}')$/;"	m
+SUBPATHS	modules/test/Makefile	/^SUBPATHS=$(shell ls -l | grep ^d | awk '{print $$9}')$/;"	m
+SUBPATHS	out/Makefile	/^SUBPATHS=$(shell ls -l | grep ^d | awk '{print $$9}')$/;"	m
+SUBPATHS	src/Makefile	/^SUBPATHS=$(shell ls -l | grep ^d | awk '{print $$9}')$/;"	m
+SUBPATHS	src/file_ops/Makefile	/^SUBPATHS=$(shell ls -l | grep ^d | awk '{print $$9}')$/;"	m
+SUBPATHS	src/print/Makefile	/^SUBPATHS=$(shell ls -l | grep ^d | awk '{print $$9}')$/;"	m
+SUBPATHS	src/pthread/Makefile	/^SUBPATHS=$(shell ls -l | grep ^d | awk '{print $$9}')$/;"	m
+SUBPATHS	src/shm/Makefile	/^SUBPATHS=$(shell ls -l | grep ^d | awk '{print $$9}')$/;"	m
+SUBPATHS	src/systime/Makefile	/^SUBPATHS=$(shell ls -l | grep ^d | awk '{print $$9}')$/;"	m
+SUBPATHS	src/uart_irm/Makefile	/^SUBPATHS=$(shell ls -l | grep ^d | awk '{print $$9}')$/;"	m
+TEXT_SZ	include/shmdata.h	4;"	d
+USER_DEBUG	include/debug.h	8;"	d
+USER_ERR	include/debug.h	9;"	d
+USER_INFO	include/debug.h	6;"	d
+USER_WARN	include/debug.h	7;"	d
+VERSION	Makefile	/^VERSION = 1$/;"	m
+WARN	include/debug.h	13;"	d
+_SHMDATA_H_HEADER	include/shmdata.h	2;"	d
+__LIB_TEST__	include/test_lib.h	2;"	d
+__USER_DEBUG__	include/debug.h	2;"	d
+_reg	src/uart_irm/uart_irm_sound_v0.02.c	/^struct _reg{$/;"	s	file:
+_reg	src/uart_irm/uart_irm_v0.04.c	/^struct _reg{$/;"	s	file:
+arg_conf	src/uart_irm/uart_irm_sound_v0.02.c	/^struct arg_conf{$/;"	s	file:
+arg_conf	src/uart_irm/uart_irm_v0.04.c	/^struct arg_conf{$/;"	s	file:
+buf	src/main.c	/^    char buf [128];$/;"	m	struct:command	file:
+buffer	src/uart_irm/uart_irm_sound_v0.02.c	/^    uint8_t buffer[32];$/;"	m	struct:save_times	file:
+buffer	src/uart_irm/uart_irm_v0.04.c	/^    uint8_t buffer[32];$/;"	m	struct:save_times	file:
+bufs	lib/uart/uart_esc.c	/^struct bufs{$/;"	s	file:
+checksum	src/uart_irm/uart_irm_sound_v0.02.c	/^static int checksum(uint8_t * buf, int lens)$/;"	f	file:
+checksum	src/uart_irm/uart_irm_v0.04.c	/^static int checksum(uint8_t * buf, int lens)$/;"	f	file:
+clear_fault_status	src/uart_irm/uart_irm_sound_v0.02.c	/^static int clear_fault_status(uint8_t node_address, uint8_t cmd)$/;"	f	file:
+clear_fault_status	src/uart_irm/uart_irm_v0.04.c	/^static int clear_fault_status(uint8_t node_address, uint8_t cmd)$/;"	f	file:
+cmd	src/main.c	/^struct command cmd[] = {$/;"	v	typeref:struct:command
+cmd	src/uart_irm/uart_irm_sound_v0.02.c	/^    uint8_t cmd;$/;"	m	struct:irm_data	file:
+cmd	src/uart_irm/uart_irm_v0.04.c	/^    uint8_t cmd;$/;"	m	struct:irm_data	file:
+command	src/main.c	/^struct command {$/;"	s	file:
+commander	src/uart_irm/uart_irm_sound_v0.02.c	/^}commander = -1;$/;"	v	typeref:enum:__anon1	file:
+commander	src/uart_irm/uart_irm_v0.04.c	/^}commander = -1;$/;"	v	typeref:enum:__anon2	file:
+count	src/file_ops/fread.c	/^int count;$/;"	v
+count	src/uart_irm/uart_irm_sound_v0.02.c	/^    uint16_t count;$/;"	m	struct:arg_conf	file:
+count	src/uart_irm/uart_irm_sound_v0.02.c	/^    uint8_t count;$/;"	m	struct:save_times	file:
+count	src/uart_irm/uart_irm_v0.04.c	/^    uint16_t count;$/;"	m	struct:arg_conf	file:
+count	src/uart_irm/uart_irm_v0.04.c	/^    uint8_t count;$/;"	m	struct:save_times	file:
+counts	src/uart_irm/uart_irm_sound_v0.02.c	/^uint8_t counts = 0;$/;"	v
+counts	src/uart_irm/uart_irm_v0.04.c	/^uint8_t counts = 0;$/;"	v
+create_pthread	src/pthread/pthread.c	/^int create_pthread()$/;"	f
+ctl	src/uart_irm/uart_irm_sound_v0.02.c	/^struct arg_conf ctl;$/;"	v	typeref:struct:arg_conf
+ctl	src/uart_irm/uart_irm_v0.04.c	/^struct arg_conf ctl;$/;"	v	typeref:struct:arg_conf
+data_buff	src/uart_irm/uart_irm_sound_v0.02.c	/^uint8_t data_buff[32];$/;"	v
+data_buff	src/uart_irm/uart_irm_v0.04.c	/^uint8_t data_buff[32];$/;"	v
+debug	include/debug.h	18;"	d
+debug	include/debug.h	20;"	d
+feedback_data	src/uart_irm/uart_irm_sound_v0.02.c	/^uint8_t feedback_data[32];$/;"	v
+feedback_data	src/uart_irm/uart_irm_v0.04.c	/^uint8_t feedback_data[32];$/;"	v
+fill_package	src/uart_irm/uart_irm_sound_v0.02.c	/^static int fill_package(uint8_t node_addr, uint8_t commond, uint8_t *data, uint8_t data_len)$/;"	f	file:
+fill_package	src/uart_irm/uart_irm_v0.04.c	/^static int fill_package(uint8_t node_addr, uint8_t commond, uint8_t *data, uint8_t data_len)$/;"	f	file:
+flags	src/main.c	/^static char flags[][128] = {"1", "2", "3", "4", "5", "6"};$/;"	v	file:
+frame_buffer	src/uart_irm/uart_irm_sound_v0.02.c	/^char frame_buffer[FRAME_LENS];$/;"	v
+frame_buffer	src/uart_irm/uart_irm_v0.04.c	/^char frame_buffer[FRAME_LENS];$/;"	v
+frame_count	src/uart_irm/uart_irm_sound_v0.02.c	/^uint64_t frame_count = 0;$/;"	v
+frame_count	src/uart_irm/uart_irm_v0.04.c	/^uint64_t frame_count = 0;$/;"	v
+irm_create_file	src/uart_irm/uart_irm_sound_v0.02.c	/^static int irm_create_file( char * log_path)$/;"	f	file:
+irm_create_file	src/uart_irm/uart_irm_v0.04.c	/^static int irm_create_file( char * log_path)$/;"	f	file:
+irm_data	src/uart_irm/uart_irm_sound_v0.02.c	/^struct irm_data{$/;"	s	file:
+irm_data	src/uart_irm/uart_irm_v0.04.c	/^struct irm_data{$/;"	s	file:
+irm_init	src/uart_irm/uart_irm_sound_v0.02.c	/^static void irm_init(void)$/;"	f	file:
+irm_init	src/uart_irm/uart_irm_v0.04.c	/^static void irm_init(void)$/;"	f	file:
+irm_open_uart	src/uart_irm/uart_irm_sound_v0.02.c	/^static int irm_open_uart(const char *uart_name, struct termios *uart_config, struct termios *uart_config_original)$/;"	f	file:
+irm_open_uart	src/uart_irm/uart_irm_v0.04.c	/^static int irm_open_uart(const char *uart_name, struct termios *uart_config, struct termios *uart_config_original)$/;"	f	file:
+irm_set_uart_speed	src/uart_irm/uart_irm_sound_v0.02.c	/^static int irm_set_uart_speed(int uart, struct termios *uart_config, speed_t speed)$/;"	f	file:
+irm_set_uart_speed	src/uart_irm/uart_irm_v0.04.c	/^static int irm_set_uart_speed(int uart, struct termios *uart_config, speed_t speed)$/;"	f	file:
+irm_task	src/uart_irm/uart_irm_sound_v0.02.c	/^static int irm_task;$/;"	v	file:
+irm_task	src/uart_irm/uart_irm_v0.04.c	/^static int irm_task;$/;"	v	file:
+irm_thread_main	src/uart_irm/uart_irm_sound_v0.02.c	/^static int irm_thread_main(int argc, char *argv[])$/;"	f	file:
+irm_thread_main	src/uart_irm/uart_irm_v0.04.c	/^static int irm_thread_main(int argc, char *argv[])$/;"	f	file:
+lens	lib/uart/uart_esc.c	/^    int lens;$/;"	m	struct:bufs	file:
+main	lib/uart/uart_esc.c	/^int main(void)$/;"	f
+main	src/file_ops/fread.c	/^int main(void)$/;"	f
+main	src/main.c	/^int main(int argc, char *argv[])$/;"	f
+main	src/print/print.c	/^void main(void)$/;"	f
+main	src/pthread/pthread.c	/^int main(int argv, char *argc[])$/;"	f
+main	src/shm/shm_write.c	/^int main()$/;"	f
+main	src/systime/get_time.c	/^int main(int argc,char *argv[])$/;"	f
+main	src/uart_irm/uart_irm_sound_v0.02.c	/^int main(int argc, char *argv[])$/;"	f
+main	src/uart_irm/uart_irm_v0.04.c	/^int main(int argc, char *argv[])$/;"	f
+motor_ctl_speed	src/uart_irm/uart_irm_sound_v0.02.c	/^static int motor_ctl_speed(uint8_t node_address, uint8_t cmd, uint16_t *speed)$/;"	f	file:
+motor_ctl_speed	src/uart_irm/uart_irm_v0.04.c	/^static int motor_ctl_speed(uint8_t node_address, uint8_t cmd, uint16_t *speed)$/;"	f	file:
+mut	src/pthread/pthread.c	/^pthread_mutex_t mut;$/;"	v
+node	lib/uart/uart_esc.c	/^    int node;$/;"	m	struct:bufs	file:
+node_addr	src/uart_irm/uart_irm_sound_v0.02.c	/^    uint8_t	node_addr;$/;"	m	struct:irm_data	file:
+node_addr	src/uart_irm/uart_irm_v0.04.c	/^    uint8_t	node_addr;$/;"	m	struct:irm_data	file:
+node_id	src/uart_irm/uart_irm_sound_v0.02.c	/^    uint16_t node_id;$/;"	m	struct:arg_conf	file:
+node_id	src/uart_irm/uart_irm_v0.04.c	/^    uint16_t node_id;$/;"	m	struct:arg_conf	file:
+objs	modules/test/Makefile	/^objs := $(ROOT_PATH)\/$(OBJS_PATH)\/print.o$/;"	m
+objs	src/file_ops/Makefile	/^objs := $(ROOT_PATH)\/$(OBJS_PATH)\/fread.o$/;"	m
+objs	src/print/Makefile	/^objs := $(ROOT_PATH)\/$(OBJS_PATH)\/print.o$/;"	m
+objs	src/pthread/Makefile	/^objs := $(ROOT_PATH)\/$(OBJS_PATH)\/pthread.o$/;"	m
+objs	src/shm/Makefile	/^objs := $(ROOT_PATH)\/$(OBJS_PATH)\/shm_write.o$/;"	m
+objs	src/systime/Makefile	/^objs := $(ROOT_PATH)\/$(OBJS_PATH)\/get_time.o$/;"	m
+objs	src/uart_irm/Makefile	/^objs := $(ROOT_PATH)\/$(OBJS_PATH)\/uart_irm_v0.04.o$/;"	m
+objs1	src/uart_irm/Makefile	/^objs1 := $(ROOT_PATH)\/$(OBJS_PATH)\/uart_irm_sound_v0.02.o$/;"	m
+package	src/uart_irm/uart_irm_sound_v0.02.c	/^uint8_t package[32];$/;"	v
+package	src/uart_irm/uart_irm_v0.04.c	/^uint8_t package[32];$/;"	v
+pid	src/pthread/pthread.c	/^pthread_t pid[2];$/;"	v
+poll_time	src/uart_irm/uart_irm_sound_v0.02.c	/^    struct timeval poll_time;$/;"	m	struct:save_times	typeref:struct:save_times::timeval	file:
+poll_time	src/uart_irm/uart_irm_v0.04.c	/^    struct timeval poll_time;$/;"	m	struct:save_times	typeref:struct:save_times::timeval	file:
+read_file	src/file_ops/fread.c	/^int read_file()$/;"	f
+receive_time	src/uart_irm/uart_irm_sound_v0.02.c	/^    struct timeval receive_time;$/;"	m	struct:save_times	typeref:struct:save_times::timeval	file:
+receive_time	src/uart_irm/uart_irm_v0.04.c	/^    struct timeval receive_time;$/;"	m	struct:save_times	typeref:struct:save_times::timeval	file:
+reg	lib/uart/uart_esc.c	/^    int reg;$/;"	m	struct:reg	file:
+reg	lib/uart/uart_esc.c	/^struct reg {$/;"	s	file:
+reg	src/file_ops/fread.c	/^    int reg;$/;"	m	struct:reg	file:
+reg	src/file_ops/fread.c	/^struct reg {$/;"	s	file:
+reg	src/uart_irm/uart_irm_sound_v0.02.c	/^    uint16_t reg;$/;"	m	struct:_reg	file:
+reg	src/uart_irm/uart_irm_sound_v0.02.c	/^    uint16_t reg;$/;"	m	struct:irm_data	file:
+reg	src/uart_irm/uart_irm_v0.04.c	/^    uint16_t reg;$/;"	m	struct:_reg	file:
+reg	src/uart_irm/uart_irm_v0.04.c	/^    uint16_t reg;$/;"	m	struct:irm_data	file:
+reg_cfg	src/file_ops/fread.c	/^struct reg reg_cfg[100];$/;"	v	typeref:struct:reg
+reg_cfg	src/uart_irm/uart_irm_v0.04.c	/^struct _reg reg_cfg[100];$/;"	v	typeref:struct:_reg
+reg_read	src/uart_irm/uart_irm_sound_v0.02.c	/^static int reg_read(uint8_t node_addr, uint16_t reg, uint16_t val)$/;"	f	file:
+reg_read	src/uart_irm/uart_irm_v0.04.c	/^static int reg_read(uint8_t node_addr, uint16_t reg, uint16_t val)$/;"	f	file:
+reg_write	src/uart_irm/uart_irm_sound_v0.02.c	/^static int reg_write(uint8_t node_addr, uint16_t reg, uint16_t val)$/;"	f	file:
+reg_write	src/uart_irm/uart_irm_v0.04.c	/^static int reg_write(uint8_t node_addr, uint16_t reg, uint16_t val)$/;"	f	file:
+regs	lib/uart/uart_esc.c	/^    struct reg *regs;$/;"	m	struct:bufs	typeref:struct:bufs::reg	file:
+regs1	lib/uart/uart_esc.c	/^struct reg regs1[] = {{1,2},{1,2}};$/;"	v	typeref:struct:reg
+regs2	lib/uart/uart_esc.c	/^struct reg regs2[] = {{2,2},{1,2},{3,4},{5,6}};$/;"	v	typeref:struct:reg
+regs3	lib/uart/uart_esc.c	/^struct reg regs3[] = {{3,2},{1,2}};$/;"	v	typeref:struct:reg
+regs4	lib/uart/uart_esc.c	/^struct reg regs4[] = {{4,2},{1,2}};$/;"	v	typeref:struct:reg
+save_test	src/uart_irm/uart_irm_sound_v0.02.c	/^static int save_test(void)$/;"	f	file:
+save_test	src/uart_irm/uart_irm_v0.04.c	/^static int save_test(void)$/;"	f	file:
+save_times	src/uart_irm/uart_irm_sound_v0.02.c	/^struct save_times {$/;"	s	file:
+save_times	src/uart_irm/uart_irm_v0.04.c	/^struct save_times {$/;"	s	file:
+send_package	src/uart_irm/uart_irm_sound_v0.02.c	/^static int send_package(uint8_t *data, int package_lens)$/;"	f	file:
+send_package	src/uart_irm/uart_irm_v0.04.c	/^static int send_package(uint8_t *data, int package_lens)$/;"	f	file:
+send_time	src/uart_irm/uart_irm_sound_v0.02.c	/^    struct timeval send_time;$/;"	m	struct:save_times	typeref:struct:save_times::timeval	file:
+send_time	src/uart_irm/uart_irm_v0.04.c	/^    struct timeval send_time;$/;"	m	struct:save_times	typeref:struct:save_times::timeval	file:
+set_speed	src/uart_irm/uart_irm_sound_v0.02.c	/^    uint64_t set_speed;$/;"	m	struct:save_times	file:
+set_speed	src/uart_irm/uart_irm_v0.04.c	/^    uint64_t set_speed;$/;"	m	struct:save_times	file:
+shared_use_st	include/shmdata.h	/^struct shared_use_st  $/;"	s
+speed	src/uart_irm/uart_irm_sound_v0.02.c	/^    int speed[20];$/;"	m	struct:arg_conf	file:
+speed	src/uart_irm/uart_irm_sound_v0.02.c	/^    uint16_t speed[4];$/;"	m	struct:irm_data	file:
+speed	src/uart_irm/uart_irm_sound_v0.02.c	/^    uint64_t speed;$/;"	m	struct:save_times	file:
+speed	src/uart_irm/uart_irm_v0.04.c	/^    int speed[20];$/;"	m	struct:arg_conf	file:
+speed	src/uart_irm/uart_irm_v0.04.c	/^    uint16_t speed[4];$/;"	m	struct:irm_data	file:
+speed	src/uart_irm/uart_irm_v0.04.c	/^    uint64_t speed;$/;"	m	struct:save_times	file:
+sum	src/pthread/pthread.c	/^int sum = 0;$/;"	v
+test	src/uart_irm/uart_irm_v0.04.c	/^int test()$/;"	f
+test_fd	src/uart_irm/uart_irm_sound_v0.02.c	/^static int test_fd;$/;"	v	file:
+test_fd	src/uart_irm/uart_irm_v0.04.c	/^static int test_fd;$/;"	v	file:
+test_lib	modules/test/test_lib.c	/^int test_lib(char *buf)$/;"	f
+text	include/shmdata.h	/^    char text[TEXT_SZ];\/\/记录写入和读取的文本  $/;"	m	struct:shared_use_st
+thread1	src/pthread/pthread.c	/^void *thread1()$/;"	f
+thread2	src/pthread/pthread.c	/^void *thread2()$/;"	f
+thread_running	src/uart_irm/uart_irm_sound_v0.02.c	/^static volatile bool thread_running = false;$/;"	v	file:
+thread_running	src/uart_irm/uart_irm_v0.04.c	/^static volatile bool thread_running = false;$/;"	v	file:
+thread_should_exit	src/uart_irm/uart_irm_sound_v0.02.c	/^static volatile bool thread_should_exit = false;$/;"	v	file:
+thread_should_exit	src/uart_irm/uart_irm_v0.04.c	/^static volatile bool thread_should_exit = false;$/;"	v	file:
+thread_wait	src/pthread/pthread.c	/^void thread_wait()$/;"	f
+times_buffer	src/uart_irm/uart_irm_sound_v0.02.c	/^static struct save_times times_buffer[100];$/;"	v	typeref:struct:save_times	file:
+times_buffer	src/uart_irm/uart_irm_v0.04.c	/^static struct save_times times_buffer[100];$/;"	v	typeref:struct:save_times	file:
+uart_ioctl	src/uart_irm/uart_irm_sound_v0.02.c	/^static int uart_ioctl(struct irm_data pre, int _fd)$/;"	f	file:
+uart_ioctl	src/uart_irm/uart_irm_v0.04.c	/^static int uart_ioctl(struct irm_data pre, int _fd)$/;"	f	file:
+uint16_t	src/uart_irm/uart_irm_sound_v0.02.c	/^typedef unsigned short uint16_t;$/;"	t	file:
+uint16_t	src/uart_irm/uart_irm_v0.04.c	/^typedef unsigned short uint16_t;$/;"	t	file:
+uint32_t	src/uart_irm/uart_irm_sound_v0.02.c	/^typedef unsigned int uint32_t;$/;"	t	file:
+uint32_t	src/uart_irm/uart_irm_v0.04.c	/^typedef unsigned int uint32_t;$/;"	t	file:
+uint64_t	src/uart_irm/uart_irm_sound_v0.02.c	/^typedef unsigned long long uint64_t;$/;"	t	file:
+uint64_t	src/uart_irm/uart_irm_v0.04.c	/^typedef unsigned long long uint64_t;$/;"	t	file:
+uint8_t	src/uart_irm/uart_irm_sound_v0.02.c	/^typedef unsigned char uint8_t;$/;"	t	file:
+uint8_t	src/uart_irm/uart_irm_v0.04.c	/^typedef unsigned char uint8_t;$/;"	t	file:
+usage	src/main.c	/^void usage(void)$/;"	f
+usage	src/uart_irm/uart_irm_sound_v0.02.c	/^static void usage()$/;"	f	file:
+usage	src/uart_irm/uart_irm_v0.04.c	/^static void usage()$/;"	f	file:
+val	lib/uart/uart_esc.c	/^    int val;$/;"	m	struct:reg	file:
+val	src/uart_irm/uart_irm_sound_v0.02.c	/^    uint16_t val;$/;"	m	struct:_reg	file:
+val	src/uart_irm/uart_irm_sound_v0.02.c	/^    uint16_t val;$/;"	m	struct:irm_data	file:
+val	src/uart_irm/uart_irm_v0.04.c	/^    uint16_t val;$/;"	m	struct:_reg	file:
+val	src/uart_irm/uart_irm_v0.04.c	/^    uint16_t val;$/;"	m	struct:irm_data	file:
+value	src/file_ops/fread.c	/^    int value;$/;"	m	struct:reg	file:
+written	include/shmdata.h	/^    int written;\/\/作为一个标志，非0：表示可读，0表示可写  $/;"	m	struct:shared_use_st

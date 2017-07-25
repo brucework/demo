@@ -25,21 +25,21 @@
          p = localtime(&timep); \
          switch(LEVEL){ \
          case INFO: \
-             printf("[%02d:%02d:%02d]" USER_INFO "Len:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+             printf("[%02d:%02d:%02d]" USER_INFO "Line:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
              break; \
          case WARN: \
-             printf("[%02d:%02d:%2d]" USER_WARN "Len:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+             printf("[%02d:%02d:%2d]" USER_WARN "Line:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
              break; \
          case DEBUG: \
-             printf("[%02d:%02d:%02d]" USER_DEBUG "Len:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+             printf("[%02d:%02d:%02d]" USER_DEBUG "Line:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
              break; \
          case ERR: \
-             printf("[%02d:%02d:%02d]" USER_ERR "Len:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+             printf("[%02d:%02d:%02d]" USER_ERR "Line:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
              break; \
          case NONE: \
              break; \
          default: \
-             printf("[%02d:%02d:%02d]" USER_ERR "Len:%02d LOG format error\n", p->tm_hour, p->tm_min, p->tm_sec, __LINE__); \
+             printf("[%02d:%02d:%02d]" USER_ERR "Line:%02d LOG format error\n", p->tm_hour, p->tm_min, p->tm_sec, __LINE__); \
              break; \
          } \
     })
