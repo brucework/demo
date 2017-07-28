@@ -9,6 +9,7 @@ $(SUBPATHS):ECHO
 	make -C $@
 $(CORE_OBJS):%.o:%.c
 	$(CC) -c $^ -o $(ROOT_PATH)/$(OBJS_PATH)/$@ $(INC_PATH)
+
 demo:$(CORE_OBJS)
 	$(CC) $(ROOT_PATH)/$(OBJS_PATH)/$^ -o $(ROOT_PATH)/$(BIN_PATH)/$@
 

@@ -1,11 +1,11 @@
-objs := test.o
+objs := uart_esc.o
 
-all: $(objs)
-	-gcc $^ -o test
+all:$(objs)
+	@gcc -o test $(objs)
 
-$(objs):
-	gcc -c uart_esc.c -o test.o
+$(objs):uart_esc.h
 
+.PHONY:clean
 clean:
-	rm test.o
-	rm test
+	-@rm $(objs)
+	-@rm test

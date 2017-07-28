@@ -45,10 +45,12 @@ export CC ROOT_PATH OBJS_PATH BIN_PATH LIB_PATH INC_PATH EX_LIB_PATH
 
 all:$(SUBPATH) $(CODE_OBJS)
 	make -C $^
-#	make -C $@
 
-$(SUBPATH):$(LIBPATH)
-	make -C $^
+#$(SUBPATH):$(SUBPATH)
+#	make -C $^
+
+#lib:$(LIBPATH)
+#	make -C $^
 #OUT:ECHO
 #	make -C out
 #ECHO:

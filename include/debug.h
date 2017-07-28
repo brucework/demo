@@ -45,4 +45,31 @@
     })
 #endif
 
+#define err(format, ...) \
+    ({ \
+        time_t timep; \
+        struct tm *p; \
+        time(&timep); \
+        p = localtime(&timep); \
+        printf("[%02d:%02d:%02d] (E) " "Line:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+    })
+
+#define info(format, ...) \
+    ({ \
+        time_t timep; \
+        struct tm *p; \
+        time(&timep); \
+        p = localtime(&timep); \
+        printf("[%02d:%02d:%02d] (I) " "Line:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+    })
+
+#define warn(format, ...) \
+    ({ \
+        time_t timep; \
+        struct tm *p; \
+        time(&timep); \
+        p = localtime(&timep); \
+        printf("[%02d:%02d:%02d] (W) " "Line:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+    })
+
 #endif    // end __USER_DEBUG__

@@ -13,6 +13,9 @@ void main(void)
         debug(DEBUG,"%s enter.\n", __func__);
         debug(ERR,"%s enter.\n", __func__);
         debug(NONE,"%s enter.\n", __func__);
+        info("%s enter.\n", __func__);
+        warn("%s enter.\n", __func__);
+        err("%s enter.\n", __func__);
 
     }
 }
