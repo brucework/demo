@@ -10,6 +10,12 @@ int main(void)
     int ret = 0;
     struct bufs buf[4];
     char log[100] = "abcdefg sdfs\n";
+    
+    ret = log_init();
+    if(ret == -1)
+    {
+        err("log init error!\n");
+    }
 
     buf[0].regs = regs1;
     buf[0].node = 1;
@@ -36,17 +42,5 @@ int main(void)
     info("%d %d \n", buf[3].regs->reg, buf[3].regs->val);
     info("node %d %d \n", buf[3].node, buf[3].lens);
 
-    ret = log_init();
-    if(ret == -1)
-    {
-        err("log init error\n");
-    }
-
-    ret = log_save(log);
-    if(ret <= 0)
-    {
-        err("log write error\n");
-    }
-    
     return 0;
 }

@@ -2,8 +2,11 @@
 #define __USER_DEBUG__
 
 #include <stdio.h>
+#include<string.h>
+#include<stdlib.h>
 #include <time.h>
 
+#define SAVE_LOG 1
 
 #define USER_INFO    " [INFO] "
 #define USER_WARN    " [WARN] "
@@ -15,6 +18,10 @@
 #define WARN    2
 #define DEBUG   3
 #define ERR     4
+
+#define LOG_PATH "./log1.txt"
+
+FILE *fd;
 
 int log_init();
 int log_save(char *buf);
@@ -57,6 +64,7 @@ int log_save(char *buf);
         time(&timep); \
         p = localtime(&timep); \
         printf("[%02d:%02d:%02d] (E) " "Line(%02d): " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+        fprintf(fd, "[%02d:%02d:%02d] (E) " "Line(%02d): " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
     })
 
 #define info(format, ...) \
@@ -66,6 +74,7 @@ int log_save(char *buf);
         time(&timep); \
         p = localtime(&timep); \
         printf("[%02d:%02d:%02d] (I) " "Line(%02d): " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+        fprintf(fd, "[%02d:%02d:%02d] (I) " "Line(%02d): " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
    })
 
 #define warn(format, ...) \
@@ -75,6 +84,7 @@ int log_save(char *buf);
         time(&timep); \
         p = localtime(&timep); \
         printf("[%02d:%02d:%02d] (W) " "Line(%02d): " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+        fprintf(fd, "[%02d:%02d:%02d] (W) " "Line(%02d): " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
   })
 
 #endif    // end __USER_DEBUG__
