@@ -30,11 +30,13 @@ OBJPATH		= $(RELEASE)/objs
 # Project root path.
 objtree := .
 
-subdir := $(objtree)/src
+#subdir := $(objtree)/src
+subdir := src
 
 srctree := $(objtree)/src
 
-obj = $(OBJPATH)/test.o
+obj = $(OBJPATH)/test.o \
+	  $(OBJPATH)/log.o
 
 target:= main
 
@@ -48,20 +50,23 @@ vpath %.h $(USERINCLUDE)
 vpath %.c $(srctree)
 vpath %.o $(OBJPATH)
 
-
 export vpath Q CC MAKE root objtree srctree OBJPATH CFLAGS obj
+	
+#sub-make:
+#$(CUBDIR)
 
-all: $(RELEASE) main
+all: $(RELEASE) $(subdir) $(target)
 	$(Q)$(CC) $(obj) -o $(RELEASE)/$(target)
 
 $(RELEASE):
 	$(Q)mkdir -p $(RELEASE)
 	$(Q)mkdir -p $(OBJPATH)
 
-main:$(subdir) $(obj)
-	$(Q)$(MAKE) -C $(subdir)
-
-$(obj):%.c:%.h
+$(target):$(subdir)
+	$(Q)$(MAKE) -C $^
+$(subdir):
+	echo $@
+	$(Q)$(MAKE) -C $@
 
 .PHONY:clean
 clean:

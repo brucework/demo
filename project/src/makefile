@@ -1,11 +1,12 @@
-objs-y := test.o
+objs-y := test.o \
+		log.o
 
-vpath %.h $(USERINCLUDE)
-vpath %.c $(srctree)
-vpath %.o $(OBJPATH)
+#vpath %.h $(USERINCLUDE)
+#vpath %.c $(srctree)
+#vpath %.o $(OBJPATH)
 
 all:$(objs-y)
 	@mv $(objs-y) $(OBJPATH)
-$(objs-y):%.c:%.h
-	$(CC) -c $< -o $(OBJPATH)/$@
+
+%.o:%.h
 
