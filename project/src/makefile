@@ -1,4 +1,4 @@
-objs-y := test.o \
+objs-y := main.o \
 		log.o
 
 #vpath %.h $(USERINCLUDE)

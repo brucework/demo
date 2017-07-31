@@ -35,7 +35,7 @@ subdir := src
 
 srctree := $(objtree)/src
 
-obj = $(OBJPATH)/test.o \
+obj = $(OBJPATH)/main.o \
 	  $(OBJPATH)/log.o
 
 target:= main
@@ -64,9 +64,6 @@ $(RELEASE):
 
 $(target):$(subdir)
 	$(Q)$(MAKE) -C $^
-$(subdir):
-	echo $@
-	$(Q)$(MAKE) -C $@
 
 .PHONY:clean
 clean:
