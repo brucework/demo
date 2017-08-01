@@ -32,7 +32,8 @@ objpath		= $(RELEASE)/objs
 subdir = src lib
 
 obj := $(objpath)/src \
-	  $(objpath)/lib
+		$(objpath)/lib \
+		$(objpath)/src/timer
 
 target:= main
 
@@ -46,7 +47,7 @@ vpath %.h $(USERINCLUDE)
 vpath %.c $(subdir)
 vpath %.o $(objpath)
 
-export vpath Q CC MAKE root CFLAGS
+export vpath Q CC MAKE root whoami host_type CFLAGS 
 	
 all:$(RELEASE) $(target) $(subdir)
 

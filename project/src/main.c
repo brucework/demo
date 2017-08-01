@@ -1,16 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include <log.h>
 #include <test.h>
+#include <__timer.h>
+
 
 int main(void)
 {
     int ret = 0;
     struct bufs buf[4];
     char log[100] = "abcdefg sdfs\n";
-    
+    struct timeval set_val;
+
     ret = log_init();
     if(ret == -1)
     {
@@ -43,6 +47,16 @@ int main(void)
     info("node %d %d \n", buf[3].node, buf[3].lens);
 
     log_save(log);
+    
+    set_val.tv_sec = 0;
+    set_val.tv_usec = 2*1000;
+    init_signal();
+    init_timer(set_val);
+    
+    while(1)
+    {
+        sleep(1);
+    }
 
     return 0;
 }

@@ -1,5 +1,6 @@
-objs-y := main.o \
-		log.o
+objs-y := timer.o
+
+CFLAGS += -lrt
 
 subdir = $(shell ls -l | grep ^d | awk '{print $$9}')
 
@@ -12,5 +13,3 @@ $(subdir):ECHO
 	$(Q)mkdir -p $(objpath)/$@
 	$(Q)$(MAKE) -C $@ objpath=$(objpath)/$@
 ECHO:
-
-#echo $(subdir)
