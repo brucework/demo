@@ -43,5 +43,6 @@ int main(void)
     info("node %d %d \n", buf[3].node, buf[3].lens);
 
     log_save(log);
+
     return 0;
 }

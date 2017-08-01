@@ -46,7 +46,7 @@ vpath %.h $(USERINCLUDE)
 vpath %.c $(subdir)
 vpath %.o $(objpath)
 
-export vpath Q CC MAKE root objpath CFLAGS obj
+export vpath Q CC MAKE root CFLAGS
 	
 all:$(RELEASE) $(target) $(subdir)
 
@@ -60,10 +60,11 @@ $(target):$(subdir)
 
 $(subdir):ECHO
 	$(Q)mkdir -p $(objpath)/$@
-	$(Q)$(MAKE) -C $@ objs=$(objpath)/$@
+	$(Q)$(MAKE) -C $@ objpath=$(objpath)/$@
 
 ECHO:
-	#$(Q)echo $(subdir)
+
+#$(Q)echo $(subdir)
 
 .PHONY:clean
 clean:
