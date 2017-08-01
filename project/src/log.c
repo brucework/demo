@@ -35,8 +35,6 @@ int log_save(char *buf)
         i++;
     }
     
-    info("bufs lens%d:%s\n", i, bufs);
-
     ret = fwrite(bufs, sizeof(char), i, fd);
     if(ret <= 0)
     {

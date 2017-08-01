@@ -25,18 +25,14 @@ PYTHON		= python
 CHECK		= sparse
 
 RELEASE		:=$(root)/out
-OBJPATH		= $(RELEASE)/objs
+objpath		= $(RELEASE)/objs
 
 # Project root path.
-objtree := .
 
-#subdir := $(objtree)/src
-subdir := src
+subdir = src lib
 
-srctree := $(objtree)/src
-
-obj = $(OBJPATH)/main.o \
-	  $(OBJPATH)/log.o
+obj := $(objpath)/src \
+	  $(objpath)/lib
 
 target:= main
 
@@ -47,25 +43,29 @@ USERINCLUDE := \
 CFLAGS = $(USERINCLUDE) -O2
 
 vpath %.h $(USERINCLUDE)
-vpath %.c $(srctree)
-vpath %.o $(OBJPATH)
+vpath %.c $(subdir)
+vpath %.o $(objpath)
 
-export vpath Q CC MAKE root objtree srctree OBJPATH CFLAGS obj
+export vpath Q CC MAKE root objpath CFLAGS obj
 	
-#sub-make:
-#$(CUBDIR)
-
-all: $(RELEASE) $(subdir) $(target)
-	$(Q)$(CC) $(obj) -o $(RELEASE)/$(target)
+all:$(RELEASE) $(target) $(subdir)
 
 $(RELEASE):
 	$(Q)mkdir -p $(RELEASE)
-	$(Q)mkdir -p $(OBJPATH)
+	$(Q)mkdir -p $(objpath)
 
 $(target):$(subdir)
-	$(Q)$(MAKE) -C $^
+	$(Q)$(CC) $(foreach obj, $(obj),$(wildcard $(obj)/*.o)) -o $(RELEASE)/$(target)
+
+
+$(subdir):ECHO
+	$(Q)mkdir -p $(objpath)/$@
+	$(Q)$(MAKE) -C $@ objs=$(objpath)/$@
+
+ECHO:
+	#$(Q)echo $(subdir)
 
 .PHONY:clean
 clean:
-	$(Q)rm $(OBJPATH) -rf
+	$(Q)rm $(objpath) -rf
 	$(Q)rm $(RELEASE) -rf

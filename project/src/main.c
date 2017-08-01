@@ -42,5 +42,6 @@ int main(void)
     info("%d %d \n", buf[3].regs->reg, buf[3].regs->val);
     info("node %d %d \n", buf[3].node, buf[3].lens);
 
+    log_save(log);
     return 0;
 }
