@@ -33,7 +33,8 @@ subdir = src lib
 
 obj := $(objpath)/src \
 		$(objpath)/lib \
-		$(objpath)/src/timer
+		$(objpath)/src/timer \
+		$(objpath)/src/signal
 
 target:= main
 

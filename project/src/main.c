@@ -1,19 +1,43 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <time.h>
+#include <signal.h>
 
 #include <log.h>
 #include <test.h>
-#include <__timer.h>
+#include <_timer.h>
+#include <_signal.h>
 
+bool main_thread_exit = false;
+
+void sigint(int sig)
+{
+    if(sig == SIGINT)
+    {
+        err("ctrl+c has been down!\n");
+        cancel_timer();
+        main_thread_exit = true;
+    }
+
+}
+
+void callback(int i)
+{
+    struct timespec now_t;
+
+    clock_gettime(CLOCK_REALTIME, &now_t);
+
+    info("time:%09ld.%09ld\n", now_t.tv_sec, now_t.tv_nsec);
+}
 
 int main(void)
 {
     int ret = 0;
     struct bufs buf[4];
     char log[100] = "abcdefg sdfs\n";
-    struct timeval set_val;
+    struct timeval set;
 
     ret = log_init();
     if(ret == -1)
@@ -46,16 +70,16 @@ int main(void)
     info("%d %d \n", buf[3].regs->reg, buf[3].regs->val);
     info("node %d %d \n", buf[3].node, buf[3].lens);
 
-    log_save(log);
-    
-    set_val.tv_sec = 0;
-    set_val.tv_usec = 2*1000;
-    init_signal();
-    init_timer(set_val);
-    
-    while(1)
+    set.tv_sec = 0;
+    set.tv_usec = 2 * 1000;
+    init_timer(set, callback);
+//    cancel_timer();
+
+    init_signal(sigint);
+
+    while(!main_thread_exit)
     {
-        sleep(1);
+        sleep(10);
     }
 
     return 0;
