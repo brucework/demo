@@ -29,9 +29,11 @@ objpath		= $(RELEASE)/objs
 
 # Project root path.
 
-subdir = src lib
+subdir := src lib
 
-obj := $(objpath)/src \
+srcpath := $(foreach subdir, $(subdir), $(shell find $(subdir)  -type d))
+
+#obj := $(objpath)/src \
 		$(objpath)/lib \
 		$(objpath)/src/timer \
 		$(objpath)/src/signal
@@ -57,7 +59,7 @@ $(RELEASE):
 	$(Q)mkdir -p $(objpath)
 
 $(target):$(subdir)
-	$(Q)$(CC) $(foreach obj, $(obj),$(wildcard $(obj)/*.o)) -o $(RELEASE)/$(target)
+	$(Q)$(CC) $(foreach srcpath, $(srcpath),$(wildcard $(objpath)/$(srcpath)/*.o)) -o $(RELEASE)/$(target)
 
 
 $(subdir):ECHO
@@ -65,6 +67,9 @@ $(subdir):ECHO
 	$(Q)$(MAKE) -C $@ objpath=$(objpath)/$@
 
 ECHO:
+	
+#echo $(obj)
+#echo $(srcpath)
 
 #$(Q)echo $(subdir)
 
