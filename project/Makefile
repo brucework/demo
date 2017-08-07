@@ -33,11 +33,6 @@ subdir := src lib
 
 srcpath := $(foreach subdir, $(subdir), $(shell find $(subdir)  -type d))
 
-#obj := $(objpath)/src \
-		$(objpath)/lib \
-		$(objpath)/src/timer \
-		$(objpath)/src/signal
-
 target:= main
 
 # Use USERINCLUDE when you must reference the UAPI directories only.
@@ -68,9 +63,8 @@ $(subdir):ECHO
 
 ECHO:
 	
-#echo $(obj)
-#echo $(srcpath)
-
+#(Q)echo $(obj)
+#(Q)echo $(srcpath)
 #$(Q)echo $(subdir)
 
 .PHONY:clean
