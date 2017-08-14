@@ -1,2 +1,1 @@
 all:
-	echo "enter lib"
