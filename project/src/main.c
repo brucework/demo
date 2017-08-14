@@ -71,21 +71,22 @@ int main(void)
     info("%d %d \n", buf[3].regs->reg, buf[3].regs->val);
     info("node %d %d \n", buf[3].node, buf[3].lens);
 
+    init_signal(sigint);    //^c exit the main.
 #if 0 
     set.tv_sec = 0;
     set.tv_usec = 2 * 1000;
     init_timer(set, callback);
 //    cancel_timer();
-
-    init_signal(sigint);
-    while(!main_thread_exit)
-    {
-        sleep(10);
-    }
 #endif
 
     ret = init_camera(640, 480);
     close_camera();
+
+
+    while(!main_thread_exit)
+    {
+        sleep(10);
+    }
 
     return 0;
 }

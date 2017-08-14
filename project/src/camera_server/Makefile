@@ -1,6 +1,6 @@
 objs-y := camera_server.o
 
-CFLAGS += -lrt
+CFLAGS +=
 
 subdir = $(shell ls -l | grep ^d | awk '{print $$9}')
 

@@ -46,7 +46,7 @@ vpath %.c $(subdir)
 vpath %.o $(objpath)
 
 export vpath Q CC MAKE root whoami host_type CFLAGS 
-	
+
 all:$(RELEASE) $(target) $(subdir)
 
 $(RELEASE):
@@ -56,13 +56,12 @@ $(RELEASE):
 $(target):$(subdir)
 	$(Q)$(CC) $(foreach srcpath, $(srcpath),$(wildcard $(objpath)/$(srcpath)/*.o)) -o $(RELEASE)/$(target)
 
-
 $(subdir):ECHO
 	$(Q)mkdir -p $(objpath)/$@
 	$(Q)$(MAKE) -C $@ objpath=$(objpath)/$@
 
 ECHO:
-	
+
 #(Q)echo $(obj)
 #(Q)echo $(srcpath)
 #$(Q)echo $(subdir)
