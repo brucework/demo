@@ -46,7 +46,7 @@ vpath %.c $(subdir)
 vpath %.o $(objpath)
 
 export vpath Q CC MAKE root whoami host_type CFLAGS 
-
+.PHONY:all
 all:$(RELEASE) $(target) $(subdir)
 
 $(RELEASE):

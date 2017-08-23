@@ -12,4 +12,5 @@ all:$(objs-y) $(subdir)
 $(subdir):ECHO
 	$(Q)mkdir -p $(objpath)/$@
 	$(Q)$(MAKE) -C $@ objpath=$(objpath)/$@
+
 ECHO:
