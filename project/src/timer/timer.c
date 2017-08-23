@@ -30,7 +30,7 @@ void init_timer(struct timeval set_val, void(*func)(int))
 
     init_time_signal(func);
 
-    /* set ITMER_REAL */
+    /* set ITIMER_REAL */
     setitimer(ITIMER_REAL, &val, NULL);
 }
 
