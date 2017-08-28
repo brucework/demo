@@ -1,4 +1,4 @@
-SUBPATHS=$(shell ls -l | grep ^d | awk '{print $$9}')
+SUBPATHS=$(shell ls -l | grep ^d | awk  '{if($$9 !="python" && $$9 !="sh") print $$9}')
 
 OUT = out
 
