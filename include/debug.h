@@ -51,7 +51,7 @@
         struct tm *p; \
         time(&timep); \
         p = localtime(&timep); \
-        printf("[%02d:%02d:%02d] (E) " "Line:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+        printf("\033[1m\033[42m[%02d:%02d:%02d] (E) " "Line:%02d \033[0m" format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
     })
 
 #define info(format, ...) \
@@ -60,7 +60,7 @@
         struct tm *p; \
         time(&timep); \
         p = localtime(&timep); \
-        printf("[%02d:%02d:%02d] (I) " "Line:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+        printf("\033[1m\033[42m[%02d:%02d:%02d] (I) " "Line:%02d \033[0m" format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
     })
 
 #define warn(format, ...) \
@@ -69,7 +69,7 @@
         struct tm *p; \
         time(&timep); \
         p = localtime(&timep); \
-        printf("[%02d:%02d:%02d] (W) " "Line:%02d " format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
+        printf("\033[1m\033[42m[%02d:%02d:%02d] (W) " "Line:%02d \033[0m" format, p->tm_hour, p->tm_min, p->tm_sec, __LINE__, ##__VA_ARGS__); \
     })
 
 #endif    // end __USER_DEBUG__
