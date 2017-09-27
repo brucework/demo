@@ -176,7 +176,7 @@ U8 packet_parser(U8 *packet, U8 data_buff[])
         return 0;
     }
 
-    crc16_packet = packet[len-2]<<8;//È¡³öÊýŸÝ°ücrc16
+    crc16_packet = packet[len-2]<<8;
     crc16_packet |= packet[len-1];
     crc16_cal = CRC16_Cal(packet+2, len-4);
     if(crc16_cal == crc16_packet)
@@ -217,7 +217,7 @@ int main(void)
     {
         memset(buf, 0, sizeof(buf));
         write(uart_fd, step, sizeof(step));
-        usleep(10 * 1000);
+        usleep(1 * 1000);
 REPOLL:
         ret = poll(&fds, 1, 1);
         if(ret > 0)
