@@ -3,10 +3,10 @@
 
 #include <time.h>
 
-#define USER_INFO    " [INFO] "
-#define USER_WARN    " [WARN] "
-#define USER_DEBUG    " [DEBUG] "
-#define USER_ERR    " [ERROR] "
+#define USER_INFO		" [INFO] "
+#define USER_WARN		" [WARN] "
+#define USER_DEBUG		" [DEBUG] "
+#define USER_ERR		" [ERROR] "
 
 #define NONE    0
 #define INFO    1
