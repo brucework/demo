@@ -17,7 +17,7 @@ void sigint(int sig)
 {
     if(sig == SIGINT)
     {
-        err("ctrl+c has been down!\n");
+        err("CTRL+c has been down!\n");
         cancel_timer();
         main_thread_exit = true;
     }
