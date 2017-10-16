@@ -54,7 +54,7 @@ int main(void)
     buf[1].node = 2;
     buf[1].lens = sizeof(regs2)/sizeof(struct reg);
 
-    buf[2].regs = regs3; 
+    buf[2].regs = regs3;
     buf[2].node = 3;
     buf[2].lens = sizeof(regs3)/sizeof(struct reg);
 
@@ -72,11 +72,11 @@ int main(void)
     info("node %d %d \n", buf[3].node, buf[3].lens);
 
     init_signal(sigint);    //^c exit the main.
-#if 0 
+#if 1
     set.tv_sec = 0;
     set.tv_usec = 2 * 1000;
     init_timer(set, callback);
-//    cancel_timer();
+    //cancel_timer();
 #endif
 
     ret = init_camera(640, 480);
