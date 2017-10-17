@@ -1,11 +1,11 @@
-root := $(shell pwd)
-whoami := $(shell whoami)
-host_type := $(shell arch)
+root		:= $(shell pwd)
+whoami		:= $(shell whoami)
+host_type	:= $(shell arch)
 
 CROSS_COMPILE :=
 
 Q		:= @
-MAKE		:= make
+MAKE	:= make
 #Make variables (CC, etc...)
 AS		= $(CROSS_COMPILE)as
 LD		= $(CROSS_COMPILE)ld
@@ -29,11 +29,11 @@ objpath		= $(RELEASE)/objs
 
 # Project root path.
 
-subdir := src lib
+subdir	:= src lib
 
 srcpath := $(foreach subdir, $(subdir), $(shell find $(subdir)  -type d))
 
-target:= main
+target	:= main
 
 # Use USERINCLUDE when you must reference the UAPI directories only.
 USERINCLUDE := \
