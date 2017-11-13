@@ -71,8 +71,8 @@ void itoa(int n, int * data)
         }
 //        debug(WARN, "nums[%d]=%d%d\n", i,  data[1], data[0]);
         i++;
-    }   
-    return ;
+    }
+    return;
 }
 
 int sum(int data)

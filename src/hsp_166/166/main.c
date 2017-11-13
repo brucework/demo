@@ -103,7 +103,7 @@ static int uart_init(void)
 
     uart_config = &uart_config_original;
 
-    /* Disable outpu post-processing */
+    /* Disable output post-processing */
     uart_config->c_oflag &= ~OPOST;
 
     /* Set baud rate */
@@ -159,8 +159,8 @@ U16 CRC16_Cal(U8* ptr, U8 len)
         crc <<= 4;
         crc ^= crc_ta_4[high^(*ptr&0x0f)];
         ptr++;
-
     }
+
     return crc;
 
 }
@@ -217,7 +217,7 @@ int main(void)
     {
         memset(buf, 0, sizeof(buf));
         write(uart_fd, step, sizeof(step));
-        usleep(1 * 1000);
+        usleep(10 * 1000);
 REPOLL:
         ret = poll(&fds, 1, 1);
         if(ret > 0)
@@ -230,7 +230,8 @@ REPOLL:
                     data[offset] = buf[i];
                     offset++;
                 }
-            } }
+            }
+        }
 
         if(fds.revents & POLLIN)
         {
@@ -248,6 +249,7 @@ REPOLL:
             dbuf.ambient_adc = data[10];
             dbuf.precision = (data[11] << 8)|data[12];
         }
+
         printf("\033[2J");
         printf("\033[2;0H");
         printf("\033[7m\tDistance\tMagnitude\tmagnitude_exp\tPrecision\tambient_adc\033[0m\n");

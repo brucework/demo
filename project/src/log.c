@@ -44,4 +44,3 @@ int log_save(char *buf)
     free(bufs);
     return ret;
 }
-

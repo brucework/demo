@@ -10,6 +10,7 @@
 #include <_timer.h>
 #include <_signal.h>
 #include <camera_api.h>
+#include <display.h>
 
 bool main_thread_exit = false;
 
@@ -72,7 +73,7 @@ int main(void)
     info("node %d %d \n", buf[3].node, buf[3].lens);
 
     init_signal(sigint);    //^c exit the main.
-#if 1
+#if 0
     set.tv_sec = 0;
     set.tv_usec = 2 * 1000;
     init_timer(set, callback);
@@ -82,7 +83,7 @@ int main(void)
     ret = init_camera(640, 480);
     close_camera();
 
-
+    display(10, 20);
     while(!main_thread_exit)
     {
         sleep(10);
