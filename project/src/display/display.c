@@ -8,12 +8,14 @@
 #include <_timer.h>
 #include <display.h>
 
+int count = 0;
 void display(int row, int column)
 {
     int ret = 0;
 
     printf("\033[2J");
-    printf("\033[%d;%dHhello!\n", row, column);
+    printf("\033[%d;%dH%s():%02d\n", row, column, __func__, count++);
+    count = (count == 100?0:count);
 
     return;
 

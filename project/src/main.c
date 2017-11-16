@@ -83,10 +83,10 @@ int main(void)
     ret = init_camera(640, 480);
     close_camera();
 
-    display(10, 20);
     while(!main_thread_exit)
     {
-        sleep(10);
+        display(10, 20);
+        usleep(300*1000);
     }
 
     return 0;
