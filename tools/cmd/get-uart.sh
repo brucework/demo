@@ -1,7 +1,39 @@
-#!/bin/sh
+#!/bin/bash
 
+MYCFLAGS=
 
-echo $1
-echo $2
+#MINICOM=sudo minicom
 
-#sudo minicom -C $1
+function usage(){                                                                                                                                                                                       
+    echo "=============== Help Info ================"
+    echo "  -C, --capturefile=FILE : start capturing to FILE "
+    echo "  -D, --device           : set device name (ignore the value from config) "
+    echo "  "
+    echo "  .e.g: get-uart -D /dev/ttyUSB0 -C log.txt"
+}
+ 
+#if [ $# -eq 0 ]
+#then
+#    usage
+#    exit 0
+#fi
+
+while getopts "C:D:i" arg
+do
+    case $arg in
+        C)
+        MYCFLAGS=$MYCFLAGS" -C "$OPTARG
+        echo $MYCFLAGS
+        ;;
+        D)
+        MYCFLAGS=$MYCFLAGS" -D "$OPTARG
+        echo $MYCFLAGS
+        ;;
+        ?)
+        usage
+        exit 0
+        ;;
+    esac
+done
+
+sudo minicom $MYCFLAGS
