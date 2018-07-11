@@ -1,0 +1,11 @@
+#/bin/bash
+
+mydir=`pwd`
+
+ if [ "$#" -ne "1" ];then
+    echo "Usage: ./unpack-ramdisk ../ramdisk.img"
+    exit 0
+fi
+
+cd $mydir
+gzip -dc $1 |cpio -i

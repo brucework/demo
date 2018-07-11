@@ -1,0 +1,12 @@
+How to user the tool to parser the dump image.
+
+Step:
+    1. Get the devices software version.
+    2. Find the "prog_firehose_ddr.elf & rawprogram0_full_flash.xml" according to the software version.
+    3. Copy the "prog_firehose_ddr.elf & rawprogram0_full_flash.xml" into the "image" file.
+    4. Edit the "rawprogram0_full_flash.xml", to annotate the partitions that are not needed.
+    5. make sure the device into EDL mode.
+    6. sudo ./parser.sh
+
+Clear the product release:
+    sudo ./parser.sh -c
