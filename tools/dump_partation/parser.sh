@@ -62,7 +62,7 @@ function dump_image()
     #cmd_dir=`dirname "$0"`
 
     $cmd_dir/apps/QSaharaServer -p /dev/$port_num -s 13:$cmd_dir/../image/prog_firehose_ddr.elf
-    $cmd_dir/apps/fh_loader --port=/dev/$port_num --sendxml=rawprogram0_full_flash.xml --search_path=$cmd_dir --noprompt --showpercentagecomplete --zlpawarehost=1 --convertprogram2read --memoryname=EMMC
+    $cmd_dir/apps/fh_loader --port=/dev/$port_num --sendxml=rawprogram0_full_flash.xml --search_path=$cmd_dir --noprompt --showpercentagecomplete --zlpawarehost=1 --convertprogram2read --memoryname=UFS
     
     $cmd_dir/apps/fh_loader --port=/dev/$port_num --noprompt --showpercentagecomplete --zlpawarehost=0 --memoryname=eMMC --setactivepartition=0 --reset
 
