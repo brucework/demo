@@ -9,6 +9,9 @@ function install_vim()
 
     echo "Config the vim"
     cp ./vim/vimrc ~/.vimrc
+
+    echo "Install meld tools"
+    sudo apt-get install meld
 }
 
 function install_ctags()
@@ -34,8 +37,8 @@ function _init()
 _init
 
 ./shadowsocks-ubuntu/shadowsock-config.sh
-#sudo apt-get update
+sudo apt-get update
 
-#install_vim
-#install_ctags
-#install_cscope
+install_vim
+install_ctags
+install_cscope

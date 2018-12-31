@@ -1,0 +1,11 @@
+{ 
+    "server":"104.194.95.68", 
+    "server_port":48888, 
+    "local_address": "127.0.0.1", 
+    "local_port":10801, 
+    "password":"bsp@smartisan", 
+    "timeout":300, 
+    "method":"aes-256-cfb", 
+    "fast_open": true, 
+    "workers": 1 
+}
