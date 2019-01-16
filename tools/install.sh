@@ -34,8 +34,6 @@ function _init()
     fi
 }
 
-_init
-
 ./shadowsocks-ubuntu/shadowsock-config.sh
 sudo apt-get update
 
