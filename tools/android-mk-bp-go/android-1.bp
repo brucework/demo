@@ -1,0 +1,115 @@
+// Copyright 2005 The Android Open Source Project
+
+// --
+
+// ANDROIDMK TRANSLATION ERROR: unsupported conditional
+// ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
+
+init_options = [
+    "-DALLOW_LOCAL_PROP_OVERRIDE=1",
+    "-DALLOW_PERMISSIVE_SELINUX=1",
+    "-DREBOOT_BOOTLOADER_ON_PANIC=1",
+    "-DWORLD_WRITABLE_KMSG=1",
+    "-DDUMP_ON_UMOUNT_FAILURE=1",
+]
+// ANDROIDMK TRANSLATION ERROR: else from unsupported contitional
+// else
+
+init_options += [
+    "-DALLOW_LOCAL_PROP_OVERRIDE=0",
+    "-DALLOW_PERMISSIVE_SELINUX=0",
+    "-DREBOOT_BOOTLOADER_ON_PANIC=0",
+    "-DWORLD_WRITABLE_KMSG=0",
+    "-DDUMP_ON_UMOUNT_FAILURE=0",
+]
+// ANDROIDMK TRANSLATION ERROR: endif from unsupported contitional
+// endif
+
+// ANDROIDMK TRANSLATION ERROR: unsupported conditional
+// ifneq (,$(filter eng,$(TARGET_BUILD_VARIANT)))
+
+init_options += ["-DSHUTDOWN_ZERO_TIMEOUT=1"]
+// ANDROIDMK TRANSLATION ERROR: else from unsupported contitional
+// else
+
+init_options += ["-DSHUTDOWN_ZERO_TIMEOUT=0"]
+// ANDROIDMK TRANSLATION ERROR: endif from unsupported contitional
+// endif
+
+init_options += ["-DLOG_UEVENTS=0"]
+
+// ANDROIDMK TRANSLATION ERROR: unsupported conditional
+// ifeq ($(TARGET_PRESIL_SLOW_BOARD), true)
+
+init_options += ["-DSLOW_BOARD=1"]
+// ANDROIDMK TRANSLATION ERROR: endif from unsupported contitional
+// endif
+
+init_cflags = init_options + [
+    "-Wall",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Werror",
+    "-std=gnu++1z",
+]
+
+// --
+
+cc_binary {
+    cppflags: init_cflags,
+    srcs: ["main.cpp"],
+
+    name: "init",
+
+    static_executable: true,
+    // ANDROIDMK TRANSLATION ERROR: unsupported assignment to LOCAL_MODULE_PATH
+    // LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+
+    // ANDROIDMK TRANSLATION ERROR: unsupported assignment to LOCAL_UNSTRIPPED_PATH
+    // LOCAL_UNSTRIPPED_PATH := $(TARGET_ROOT_OUT_UNSTRIPPED)
+
+    static_libs: [
+        "libinit",
+        "libbootloader_message",
+        "libfs_mgr",
+        "libfec",
+        "libfec_rs",
+        "libhidl-gen-utils",
+        "libsquashfs_utils",
+        "liblogwrap",
+        "libext4_utils",
+        "libcutils",
+        "libbase",
+        "libc",
+        "libseccomp_policy",
+        "libselinux",
+        "liblog",
+        "libcrypto_utils",
+        "libcrypto",
+        "libc++_static",
+        "libdl",
+        "libsparse",
+        "libz",
+        "libprocessgroup",
+        "libavb",
+        "libkeyutils",
+        "libprotobuf-cpp-lite",
+        "libpropertyinfoserializer",
+        "libpropertyinfoparser",
+    ],
+
+    required: [
+        "e2fsdroid",
+        "mke2fs",
+        "sload_f2fs",
+        "make_f2fs",
+    ],
+
+    // Create symlinks.
+    // ANDROIDMK TRANSLATION ERROR: unsupported assignment to LOCAL_POST_INSTALL_CMD
+    // LOCAL_POST_INSTALL_CMD := $(hide) mkdir -p $(TARGET_ROOT_OUT)/sbin;      ln -sf ../init $(TARGET_ROOT_OUT)/sbin/ueventd;      ln -sf ../init $(TARGET_ROOT_OUT)/sbin/watchdogd
+
+    sanitize: {
+        misc_undefined: ["signed-integer-overflow"],
+    },
+}
