@@ -7,7 +7,6 @@ code=~/work/ocean
 tool=~/work/debug/tool
 filename=`date "+%Y%m%d"`
 
-
 function usage()
 {
     echo "=============== Help Info ================"
@@ -27,6 +26,7 @@ function check_file()
     else
         echo "'$filename' existence!"
     fi
+	cd $filename
 }
 
 
@@ -35,25 +35,32 @@ then
     usage
 fi
 
-if [ $1 == "debug" ]; then
+if [ $2 ] ; then
+	debug=~/work/debug/$2
+	echo $debug
+fi
+
+if [ a$1 == "adebug" ]; then
     cd $debug
     check_file
 fi
 
-if [ $1 == "image" ]; then
+if [ a$1 == "aimage" ]; then
     cd $image
 fi
 
-if [ $1 == "ramdump" ]; then
+if [ a$1 == "aramdump" ]; then
     cd $ramdump
     check_file
 fi
 
-if [ $1 == "code" ]; then
+if [ a$1 == "acode" ]; then
     cd $code
 fi
 
-if [ $1 == "tool" ]; then
+if [ a$1 == "atool" ]; then
     cd $tool
 fi
-
+echo $debug
+echo $filename
+cd $debug/$filename

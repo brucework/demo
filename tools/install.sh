@@ -30,7 +30,7 @@ function _init()
 {
     echo "Init the tools config!"
     if [ ! -f "$HOME/tools" ];then
-        mkdir -p $HOME/tools
+        mkdir -p $HOME/tools/bin
     fi
 }
 
