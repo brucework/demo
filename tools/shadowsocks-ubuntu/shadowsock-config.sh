@@ -13,7 +13,7 @@ sudo apt install shadowsocks
 
 ######
 #
-# Add "sslocal -c $HOME/tools/shadowsocks/shadowsocks.json  &" into  $HOME/.profilea
+# Add "sslocal -c $HOME/tools/shadowsocks/shadowsocks.json  &" into  $HOME/.profile
 #
 # #Init the sslocal when startup the system
 # data=`ps -e | grep "sslocal" | awk '{print $4;}'`

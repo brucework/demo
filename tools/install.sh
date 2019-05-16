@@ -29,11 +29,13 @@ function install_cscope()
 function _init()
 {
     echo "Init the tools config!"
+    mkdir -p $HOME/tools
     if [ ! -f "$HOME/tools" ];then
         mkdir -p $HOME/tools/bin
     fi
 }
 
+#function _init
 ./shadowsocks-ubuntu/shadowsock-config.sh
 sudo apt-get update
 
