@@ -17,3 +17,9 @@ sudo mount -t cifs //172.16.2.225/flash /mnt/flash_225 -o username=$USER,passwor
 
 echo "mount 172.16.26.22 to /mnt/flash_22"
 sudo mount -t cifs //172.16.26.22/flash /mnt/flash_22 -o username=bspsystem,password=bspsystem,vers=1.0
+
+echo "mount /dev/sdb1 to ~/work/4T-work"
+sudo mount -t ext4 -o rw,nosuid,nodev,relatime,data=ordered /dev/sdb1 ~/work/4T-work/
+
+echo "mount /dev/sda1 to ~/work/1T-work"
+sudo mount -t ext4 -o rw,nosuid,nodev,relatime,data=ordered /dev/sda1 ~/work/1T-work/
