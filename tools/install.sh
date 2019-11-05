@@ -5,7 +5,7 @@ LOCAL_BIN=/usr/local/bin/
 function install_vim()
 {
     echo "Install vim tools"
-    sudo apt-get install vim vim-scripts vim-gtk vim-gnome
+    sudo apt-get install vim vim-scripts vim-gtk vim-gnome tree
 
     echo "Config the vim"
     cp ./vim/vimrc ~/.vimrc

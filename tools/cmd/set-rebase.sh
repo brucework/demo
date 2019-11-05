@@ -3,6 +3,25 @@
 from=$1
 target=$2
 
+function user_help()
+{
+    echo -e "\n===================================================="
+    echo "   e.g: set-rebase <from branch> <target branch>"
+    echo "===================================================="
+}
+
+#if [ !$from ] ; then
+#    echo -e "\n\033[1;31m no from branchs\033[0m"
+#    user_help
+#    exit 0
+#fi
+#
+#if [ !$target ] ; then
+#    echo -e "\n\033[1;31m no target branchs\033[0m"
+#    user_help
+#    exit 0
+#fi
+
 echo -e "\n\033[1;31mrebase branch from \033[1;33m$from\033[1;31m to \033[1;32m$target\033[0m"
 
 echo -e "\n\033[1;32mgit fetch from branch!!!\033[0m"
