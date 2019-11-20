@@ -35,9 +35,9 @@ function _init()
     fi
 }
 
-#function _init
-./shadowsocks-ubuntu/shadowsock-config.sh
-sudo apt-get update
+function _init
+#./shadowsocks-ubuntu/shadowsock-config.sh
+#sudo apt-get update
 
 install_vim
 install_ctags
