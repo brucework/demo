@@ -40,7 +40,7 @@ function download_tools()
     # sudo cp plugin/winfileexplorer.txt /usr/share/vim/vim80/plugin/ -rf
     #3. Config WinManager
     # " Config WinManager
-    # let g:winManagerWindowLayout=’FileExplorer|TagList’
+    # let g:winManagerWindowLayout='FileExplorer|TagList'
     # let g:miniBufExplorerMoreThanOne=0
     # let g:winManagerWidth=30
     # nmap wm :WMToggle<cr>
